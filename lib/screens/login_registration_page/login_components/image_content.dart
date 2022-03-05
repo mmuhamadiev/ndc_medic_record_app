@@ -13,7 +13,8 @@ class ImageContent extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         image,
-        Text(label, style: kTextStyle)
+        Text(label, style: kTextStyle),
+        SizedBox(height: 10,)
       ],
     );
   }
