@@ -10,9 +10,9 @@ import 'screens/login_registration_page/login_page.dart';
 class OnGenerateRoutes {
   static Route<dynamic> generatedRout(RouteSettings settings){
     switch(settings.name) {
-      case OnBoarding.routeName:
+      case OnBoardingPage.routeName:
         return MaterialPageRoute(builder: (BuildContext context) {
-          return OnBoarding();
+          return OnBoardingPage();
         });
       case LoginPage.routeName:
         return MaterialPageRoute(builder: (BuildContext context) {

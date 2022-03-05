@@ -8,7 +8,7 @@ const kTextStyle = TextStyle(
     fontSize: 20, color: kTextBlackColor, fontWeight: FontWeight.bold);
 
 const kNumberTextStyle =
-    TextStyle(fontSize: 50, fontWeight: FontWeight.w900, color: Colors.black);
+    TextStyle(fontSize: 30, fontWeight: FontWeight.w900, color: Colors.black);
 
 
 const kBottomTextStyle = TextStyle(fontSize: 30, color: Colors.black);

@@ -10,8 +10,8 @@ class RoundIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return RawMaterialButton(
       constraints: BoxConstraints.tightFor(
-        width: 56,
-        height: 56,
+        width: 50,
+        height: 50,
       ),
       child: Icon(icon),
       onPressed: func,

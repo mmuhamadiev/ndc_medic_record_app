@@ -1,206 +1,114 @@
 import 'package:flutter/material.dart';
-import 'package:ndc_medic_record_app/screens/login_registration_page/login_page.dart';
-import 'package:onboarding/onboarding.dart';
 import 'package:ndc_medic_record_app/constraints.dart';
+import 'package:introduction_screen/introduction_screen.dart';
 
-class OnBoarding extends StatefulWidget {
+class OnBoardingPage extends StatefulWidget {
 
   static const routeName = '/';
 
   @override
-  State<OnBoarding> createState() => _OnBoardingState();
+  _OnBoardingPageState createState() => _OnBoardingPageState();
 }
 
-class _OnBoardingState extends State<OnBoarding> {
+class _OnBoardingPageState extends State<OnBoardingPage> {
+  final introKey = GlobalKey<IntroductionScreenState>();
+
+  void _onIntroEnd(context) {
+    Navigator.of(context).pushNamedAndRemoveUntil(
+        '/login',
+            (Route<dynamic> route) => false);
+  }
+
   final onboardingPagesList = [
-    PageModel(
-      widget: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(bottom: 45.0, top: 40),
-            child: Image.asset(
-              'assets/images/img.png',
-            ),
-          ),
-          const SizedBox(
-            width: double.infinity,
-            child: Text(
-              'Func',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(bottom: 10, top: 10),
-            width: double.infinity,
-            child: const Text(
-              'Func desctiption',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontStyle: FontStyle.italic),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.only(bottom: 10.0, top: 10),
-            width: double.infinity,
-            child: const Text(
-              'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 15,
-              ),
-            ),
-          ),
-        ],
+    PageViewModel(
+      title: "Title of first page",
+      body: "Here you can write the description of the page, to explain someting...",
+      image: Center(child: Image.asset(
+        'assets/images/img.png',
+        scale: 1.4,
+      ),),
+      decoration: const PageDecoration(
+        titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+        bodyPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+        pageColor: Colors.white,
+        imagePadding: EdgeInsets.zero,
       ),
     ),
-    PageModel(
-      widget: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(bottom: 45.0, top: 40),
-            child: Image.asset(
-              'assets/images/img.png',
-            ),
-          ),
-          const SizedBox(
-            width: double.infinity,
-            child: Text(
-              'Func',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.only(bottom: 10, top: 10),
-            width: double.infinity,
-            child: const Text(
-              'Func desctiption',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontStyle: FontStyle.italic),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.only(bottom: 10.0, top: 10),
-            width: double.infinity,
-            child: const Text(
-              'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 15,
-              ),
-            ),
-          ),
-        ],
+    PageViewModel(
+      title: "Title of first page",
+      body: "Here you can write the description of the page, to explain someting...",
+      image: Center(child: Image.asset(
+        'assets/images/img.png',
+        scale: 1.4,
+      ),),
+      decoration: const PageDecoration(
+        titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+        bodyPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+        pageColor: Colors.white,
+        imagePadding: EdgeInsets.zero,
       ),
     ),
-    PageModel(
-      widget: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(bottom: 45.0, top: 40),
-            child: Image.asset(
-              'assets/images/img.png',
-            ),
-          ),
-          const SizedBox(
-            width: double.infinity,
-            child: Text(
-              'Func',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.only(bottom: 10, top: 10),
-            width: double.infinity,
-            child: const Text(
-              'Func desctiption',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontStyle: FontStyle.italic),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.only(bottom: 10.0, top: 10),
-            width: double.infinity,
-            child: const Text(
-              'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 15,
-              ),
-            ),
-          ),
-        ],
+    PageViewModel(
+      title: "Title of first page",
+      body: "Here you can write the description of the page, to explain someting...",
+      image: Center(child: Image.asset(
+        'assets/images/img.png',
+        scale: 1.4,
+      ),),
+      decoration: const PageDecoration(
+        titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
+        bodyTextStyle: TextStyle(fontSize: 19.0),
+        bodyPadding: EdgeInsets.fromLTRB(16.0, 0.0, 16.0, 16.0),
+        pageColor: Colors.white,
+        imagePadding: EdgeInsets.zero,
       ),
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: Onboarding(
-        background: Colors.white,
-        proceedButtonStyle: ProceedButtonStyle(
-            proceedpButtonText: const Text('Sign-in',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                )),
-            proceedButtonColor: kStaticMainColor,
-            proceedButtonRoute: (context) {
-              return Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => LoginPage(),
-                ),
-                    (route) => false,
-              );
-            },),
-        pages: onboardingPagesList,
-        skipButtonStyle: const SkipButtonStyle(
-          skipButtonColor: kStaticMainColor,
-          skipButtonText: Text(
-            'Skip',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 30,
-            ),
-          ),
-
+    return IntroductionScreen(
+      globalBackgroundColor: Colors.white,
+      pages: onboardingPagesList,
+      onDone: () => _onIntroEnd(context),
+      showBackButton: false,
+      showSkipButton: false,
+      next: const Material(
+        color: kStaticMainColor,
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20),bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
+        child: Padding(
+          padding: EdgeInsets.only(left: 20, right: 20,top: 10,bottom: 10),
+          child: Text('Next',style: TextStyle(color: Colors.white,fontSize: 25),),
         ),
-        footerPadding: const EdgeInsets.only(left: 45.0, right: 45.0, bottom: 60.0),
-        indicator: Indicator(
-          activeIndicator: const ActiveIndicator(
-            color: Color(0xff000000),
-          ),
-          closedIndicator: const ClosedIndicator(
-            color: Color(0xff4ECF42),
-          ),
-          indicatorDesign: IndicatorDesign.polygon(
-            polygonDesign: PolygonDesign(
-              polygonRadius: 8,
-              polygonSpacer: 25.0,
-              polygon: DesignType.polygon_circle,
-            ),
-          ),
+      ),
+      skipOrBackFlex: 0,
+      isTopSafeArea: true,
+      dotsDecorator: DotsDecorator(
+          size: const Size.square(10.0),
+          activeSize: const Size(20.0, 10.0),
+          activeColor: kStaticMainColor,
+          color: Colors.black26,
+          spacing: const EdgeInsets.symmetric(horizontal: 3.0),
+          activeShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25.0)
+          )
+      ),
+      globalFooter: const SizedBox(
+        width: double.infinity,
+        height: 60,
+      ),
+      nextStyle: ButtonStyle(
+        overlayColor: MaterialStateProperty.all(Colors.transparent),
+      ),
+      doneStyle: ButtonStyle(
+        overlayColor: MaterialStateProperty.all(Colors.transparent),
+      ),
+      done: const Material(
+        color: kStaticMainColor,
+        borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20),bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20,top: 10,bottom: 10),
+          child: Text('Sing-in',style: TextStyle(color: Colors.white,fontSize: 25),),
         ),
       ),
     );

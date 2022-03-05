@@ -50,6 +50,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.4"
+  dots_indicator:
+    dependency: transitive
+    description:
+      name: dots_indicator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   fake_async:
     dependency: transitive
     description:
@@ -81,6 +88,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "9.2.0"
+  introduction_screen:
+    dependency: "direct main"
+    description:
+      name: introduction_screen
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
   lints:
     dependency: transitive
     description:
@@ -109,13 +123,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
-  onboarding:
-    dependency: "direct main"
-    description:
-      name: onboarding
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.1.0"
   path:
     dependency: transitive
     description:
@@ -186,4 +193,3 @@ packages:
     version: "2.1.2"
 sdks:
   dart: ">=2.17.0-150.0.dev <3.0.0"
-  flutter: ">=1.17.0"
