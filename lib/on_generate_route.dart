@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ndc_medic_record_app/screens/login_registration_page/login_page.dart';
 import 'package:ndc_medic_record_app/screens/login_registration_page/registration_page.dart';
+import 'package:ndc_medic_record_app/screens/main_menu_page/main_menu_page.dart';
 import 'package:ndc_medic_record_app/screens/onboarding_page/on_boarding_screen.dart';
 import 'screens/onboarding_page/on_boarding_screen.dart';
 import 'screens/not_found_page.dart';
@@ -22,10 +23,10 @@ class OnGenerateRoutes {
         return MaterialPageRoute(builder: (BuildContext context) {
           return RegistrationPage();
         });
-      // case ChatScreen.routeName:
-      //   return MaterialPageRoute(builder: (BuildContext context) {
-      //     return ChatScreen();
-      //   });
+      case MainMenuPage.routeName:
+        return MaterialPageRoute(builder: (BuildContext context) {
+          return MainMenuPage();
+        });
       default:
         return MaterialPageRoute(builder: (BuildContext context) {return NotFoundPage();});
     }

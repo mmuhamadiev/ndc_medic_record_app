@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 const kBottomTextStyle = TextStyle(fontSize: 30, color: Colors.white,);
 
 const kStaticMainColor = Color(0xff00A651);
-const kStaticMainColorOpacity = Color.fromRGBO(0, 166, 81, 50);
+const kStaticMainColorOpacity = Color(0x8000a651);
 
 const kInputDecoration = InputDecoration(
   filled: false,

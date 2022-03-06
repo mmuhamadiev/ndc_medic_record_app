@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ndc_medic_record_app/screens/login_registration_page/login_components/login_constraints.dart';
+//import 'package:ndc_medic_record_app/screens/login_registration_page/login_components/login_constraints.dart';
+import 'package:ndc_medic_record_app/constraints.dart';
 
 class BottomButton extends StatelessWidget {
   BottomButton({required this.onPress,required this.buttonText});
@@ -13,7 +14,7 @@ class BottomButton extends StatelessWidget {
       margin: EdgeInsets.only(top: 10),
       width: double.infinity,
       height: 80,
-      color: Colors.green,
+      color: kStaticMainColor,
       child: TextButton(
         onPressed: onPress,
         child: Text(

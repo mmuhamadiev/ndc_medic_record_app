@@ -112,7 +112,11 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     height: 100,
                   ),
-              BottomButton(onPress: () {}, buttonText: 'Sign-in'),
+              BottomButton(onPress: () {
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/main_menu',
+                        (Route<dynamic> route) => false);
+              }, buttonText: 'Sign-in'),
             ]),
           ),
         ),

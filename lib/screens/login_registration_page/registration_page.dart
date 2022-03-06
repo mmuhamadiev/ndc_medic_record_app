@@ -119,7 +119,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         ),
                         child: Slider(
                           activeColor: Colors.green,
-                          inactiveColor: Color(0xFF8D8E98),
+                          inactiveColor: Color(0xFFFFFFFF),
                           value: height.toDouble(),
                           min: 50,
                           max: 220,
@@ -132,7 +132,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                     ],
                   ),
-                  colour: kActiveColor,
+                  colour: kStaticMainColorOpacity,
                 ),
                 Row(
                   children: [
@@ -179,7 +179,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             SizedBox(height: 10,),
                           ],
                         ),
-                        colour: kActiveColor,
+                        colour: kStaticMainColorOpacity,
                       ),
                     ),
                     Expanded(
@@ -225,7 +225,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             SizedBox(height: 10,),
                           ],
                         ),
-                        colour: kActiveColor,
+                        colour: kStaticMainColorOpacity,
                       ),
                     ),
                   ],
@@ -240,10 +240,17 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   child: TextField(
                     enableSuggestions: false,
                     autocorrect: false,
+                    cursorColor: Colors.white,
                     keyboardType: TextInputType.emailAddress,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
                     decoration: kInputDecoration.copyWith(
+                      filled: true,
                       hintText: 'sample@mail.com',
                       hintStyle: TextStyle(
+                        fontSize: 15,
                         color: Colors.black38,
                       ),
                     ),
@@ -259,10 +266,17 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   padding: EdgeInsets.only(left: 30, right: 30),
                   child: TextField(
                     obscuringCharacter: '*',
+                    cursorColor: Colors.white,
                     obscureText: true,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.black,
+                    ),
                     decoration: kInputDecoration.copyWith(
+                      filled: true,
                       hintText: 'Enter 8 digit password',
                       hintStyle: TextStyle(
+                        fontSize: 15,
                         color: Colors.black38,
                       ),
                     ),
@@ -272,10 +286,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   buttonText: 'Sing-up',
                   onPress: () {
                     CalculatorBrain calcBrain = CalculatorBrain(height: height, weight: weight);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Container(),),
-                    );
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/main_menu',
+                            (Route<dynamic> route) => false);
                   },
                 ),
               ],
