@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ndc_medic_record_app/constraints.dart';
 
 const kActiveColor = Color(0xff00a651);
 const kInactiveColor = Color(0x8000a651);
@@ -13,8 +14,8 @@ const kNumberTextStyle =
 
 const kBottomTextStyle = TextStyle(fontSize: 30, color: Colors.white);
 
-const kResultTextStyle = TextStyle(fontSize: 50, color: Colors.black);
+const kResultTextStyle = TextStyle(fontSize: 50, color: kStaticMainColor);
 
-const kResultSmallTextStyle = TextStyle(fontSize: 30,color: Colors.green);
+const kResultSmallTextStyle = TextStyle(fontSize: 30,color: Colors.white);
 
-const kResultLargeTextStyle = TextStyle(fontSize: 100,color: Colors.black);
+const kResultLargeTextStyle = TextStyle(fontSize: 100,color: Colors.white);

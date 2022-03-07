@@ -9,9 +9,9 @@ class TabItem {
 
 class TabItems {
   final List<TabItem> _tabBar = [
-    TabItem('Photo', Icon(Icons.home)),
-    TabItem('Chat', Icon(Icons.chat)),
-    TabItem('Albums', Icon(Icons.album))
+    TabItem('Photo', Icon(Icons.home,color: Colors.white,)),
+    TabItem('Record', Icon(Icons.addchart,color: Colors.white,)),
+    TabItem('Chat', Icon(Icons.chat,color: Colors.white,))
   ];
 
   returnListOfTabItems() {
