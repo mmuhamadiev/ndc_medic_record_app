@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ndc_medic_record_app/constraints.dart';
 import 'package:ndc_medic_record_app/screens/drawer_page/app_drawer.dart';
 import 'package:ndc_medic_record_app/screens/drawer_page/end_drawer.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/bottom_navigation.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:ndc_medic_record_app/screens/main_menu_page/result_end_drawer.dart';
-
+import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/models/task_data.dart';
+import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/my_daily_medication.dart';
+import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/screens/task_screen.dart';
 import '../login_registration_page/login_components/calculator_brain.dart';
-import '../login_registration_page/login_components/image_content.dart';
-import '../login_registration_page/login_components/login_constraints.dart';
-import '../login_registration_page/login_components/reusable_card.dart';
-import '../login_registration_page/login_components/round_icon_button.dart';
+import 'package:provider/provider.dart';
 
 enum Gender {
   male,
@@ -19,7 +16,6 @@ enum Gender {
 }
 
 class MainMenuPage extends StatefulWidget {
-
   static const routeName = '/main_menu';
 
   @override
@@ -27,12 +23,12 @@ class MainMenuPage extends StatefulWidget {
 }
 
 class _MainMenuPageState extends State<MainMenuPage>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late TabController _tabController;
+  late TabController _tabController1;
   int _currentTabIndex = 0;
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
-
 
   TabItems bottom_nav_bar = TabItems();
 
@@ -44,12 +40,21 @@ class _MainMenuPageState extends State<MainMenuPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: bottom_nav_bar.returnListOfTabItems().length, vsync: this);
-    //_tabController.addListener(() { });
+    _tabController = TabController(
+        length: bottom_nav_bar.returnListOfTabItems().length, vsync: this);
+    _tabController1 = TabController(
+        length: 3, vsync: this);
   }
 
   Widget build(BuildContext context) {
+
+    Color tabBarBGColor = Colors.white;
+
+    if(_currentTabIndex == 0) {
+      tabBarBGColor = Colors.grey.shade200;
+    }
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       appBar: AppBar(
         leading: Builder(builder: (context) {
@@ -67,14 +72,187 @@ class _MainMenuPageState extends State<MainMenuPage>
         ],
       ),
       drawer: AppDrawer(),
-      endDrawer: EndDrawer(bmiResult: CalculatorBrain(height: height, weight: weight).calculateBMI(), bmiResultText: CalculatorBrain(height: height, weight: weight).getResult(), interpretation: CalculatorBrain(height: height, weight: weight).getResultInterpretation(),),
+      endDrawer: EndDrawer(
+        bmiResult:
+            CalculatorBrain(height: height, weight: weight).calculateBMI(),
+        bmiResultText:
+            CalculatorBrain(height: height, weight: weight).getResult(),
+        interpretation: CalculatorBrain(height: height, weight: weight)
+            .getResultInterpretation(),
+      ),
       body: TabBarView(
         physics: NeverScrollableScrollPhysics(),
         controller: _tabController,
         children: [
-          Container(
-            color: Colors.white,
-            child: Center(child: Text('1')),
+          Column(
+            children: [
+              Text('Our Doctor\'s'),
+              Expanded(
+                flex: 2,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    Container(
+                      width: 300,
+                      height: 200,
+                      margin: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: kStaticMainColorOpacity,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      //color: kStaticMainColorOpacity,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Image.asset(
+                                'assets/images/male.png',
+                                scale: 1.4,
+                              ),
+                              Row(
+                                children: [
+                                  Icon(Icons.star_border),
+                                  Icon(Icons.star_border),
+                                  Icon(Icons.star_border),
+                                  Icon(Icons.star_border),
+                                  Icon(Icons.star_border),
+                                ],
+                              )
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Doctor Name'),
+                              Text('Doctor information'),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: 300,
+                      height: 200,
+                      margin: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: kStaticMainColorOpacity,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Image.asset(
+                                'assets/images/male.png',
+                                scale: 1.4,
+                              ),
+                              Row(
+                                children: [
+                                  Icon(Icons.star_border),
+                                  Icon(Icons.star_border),
+                                  Icon(Icons.star_border),
+                                  Icon(Icons.star_border),
+                                  Icon(Icons.star_border),
+                                ],
+                              )
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Doctor Name'),
+                              Text('Doctor information'),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      width: 300,
+                      height: 200,
+                      margin: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: kStaticMainColorOpacity,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Image.asset(
+                                'assets/images/male.png',
+                                scale: 1.4,
+                              ),
+                              Row(
+                                children: [
+                                  Icon(Icons.star_border),
+                                  Icon(Icons.star_border),
+                                  Icon(Icons.star_border),
+                                  Icon(Icons.star_border),
+                                  Icon(Icons.star_border),
+                                ],
+                              )
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Doctor Name'),
+                              Text('Doctor information'),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 4,
+                child: TabBarView(controller: _tabController1,children: [
+                Container(
+                      height: double.infinity,
+                      width: MediaQuery.of(context).size.width - 20,
+                      margin: EdgeInsets.only(top: 10, left: 20, right: 20),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade200,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40)),
+                      ),
+                  child: MyDailyMedication(),
+                    ),
+                  Container(
+                    height: double.infinity,
+                    width: MediaQuery.of(context).size.width - 20,
+                    margin: EdgeInsets.only(top: 10, left: 20, right: 20),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40)),
+                    ),
+                  ),
+                  Container(
+                    height: double.infinity,
+                    width: MediaQuery.of(context).size.width - 20,
+                    margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade200,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40)),
+                    ),
+                  ),
+                ]),
+              ),
+            ],
           ),
           Container(
             color: Colors.white,
@@ -88,7 +266,7 @@ class _MainMenuPageState extends State<MainMenuPage>
       ),
       bottomNavigationBar: CurvedNavigationBar(
         color: kStaticMainColor,
-        backgroundColor: Colors.white,
+        backgroundColor: tabBarBGColor,
         buttonBackgroundColor: kStaticMainColor,
         onTap: (index) {
           setState(() {
@@ -98,9 +276,18 @@ class _MainMenuPageState extends State<MainMenuPage>
         },
         index: _currentTabIndex,
         items: [
-          Icon(Icons.home,color: Colors.white,),
-          Icon(Icons.addchart,color: Colors.white,),
-          Icon(Icons.chat,color: Colors.white,)
+          Icon(
+            Icons.home,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.addchart,
+            color: Colors.white,
+          ),
+          Icon(
+            Icons.chat,
+            color: Colors.white,
+          )
         ],
       ),
     );
