@@ -58,6 +58,9 @@ class AddListTile extends StatelessWidget {
                     if(newTaskTitle == null) {
                       Navigator.pop(context);
                     }
+                    else if (newTaskTitle == ''){
+                      Navigator.pop(context);
+                    }
                     else {
                       Provider.of<TaskData>(context, listen: false).addTask(newTaskTitle?? '');
                       Navigator.pop(context);

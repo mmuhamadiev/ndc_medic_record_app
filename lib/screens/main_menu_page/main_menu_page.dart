@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ndc_medic_record_app/constraints.dart';
 import 'package:ndc_medic_record_app/screens/drawer_page/app_drawer.dart';
@@ -36,6 +37,27 @@ class _MainMenuPageState extends State<MainMenuPage>
   int height = 180;
   int age = 18;
   int weight = 65;
+
+
+  var listData = List.generate(
+    50,
+        (index) => Column(
+      children: [
+        Container(
+          height: 65,
+          child: ListTile(
+            title: Text(index.toString()),
+            trailing: Text('4\$'),
+          ),
+        ),
+        Divider(
+          height: 1,
+          color: Colors.black45,
+        ),
+      ],
+    ),
+  );
+
 
   @override
   void initState() {
@@ -238,6 +260,36 @@ class _MainMenuPageState extends State<MainMenuPage>
                           topLeft: Radius.circular(40),
                           topRight: Radius.circular(40)),
                     ),
+                    child: Column(
+                      children: [
+                        Text('Analysis List'),
+                        Expanded(
+                          child: CustomScrollView(
+                            shrinkWrap: true,
+                            slivers: [
+                              CupertinoSliverNavigationBar(
+                                largeTitle: Text('Lab'),
+                                backgroundColor: Colors.transparent,
+                              ),
+                              SliverList(delegate: SliverChildListDelegate(
+                                [
+                                  for (var item in listData) item,
+                                ]
+                              ),),
+                              CupertinoSliverNavigationBar(
+                                largeTitle: Text('USI'),
+                                backgroundColor: Colors.transparent,
+                              ),
+                              SliverList(delegate: SliverChildListDelegate(
+                                  [
+                                    for (var item in listData) item,
+                                  ]
+                              ),),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   Container(
                     height: double.infinity,
@@ -293,3 +345,4 @@ class _MainMenuPageState extends State<MainMenuPage>
     );
   }
 }
+
