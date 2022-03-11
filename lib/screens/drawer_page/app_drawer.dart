@@ -245,7 +245,8 @@ class _AppDrawerState extends State<AppDrawer> {
                   padding: EdgeInsets.only(left: 10, right: 10),
                   child: TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/login');
+                      //Navigator.pushNamed(context, '/login');
+                      Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
                     },
                     child: Text('Log out',style: TextStyle(color: Colors.white,fontSize: 15),),
                   ),
