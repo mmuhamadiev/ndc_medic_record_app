@@ -5,11 +5,10 @@ import 'package:ndc_medic_record_app/screens/drawer_page/app_drawer.dart';
 import 'package:ndc_medic_record_app/screens/drawer_page/end_drawer.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/bottom_navigation.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/models/task_data.dart';
-import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/my_daily_medication.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/screens/task_screen.dart';
+import 'package:ndc_medic_record_app/screens/main_menu_page/medication_notification/details_page.dart';
+import 'package:ndc_medic_record_app/screens/main_menu_page/medication_notification/home_page.dart';
 import '../login_registration_page/login_components/calculator_brain.dart';
-import 'package:provider/provider.dart';
 
 enum Gender {
   male,
@@ -29,7 +28,7 @@ class _MainMenuPageState extends State<MainMenuPage>
   late TabController _tabController1;
   int _currentTabIndex = 0;
 
-  var scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   TabItems bottom_nav_bar = TabItems();
 
@@ -248,7 +247,7 @@ class _MainMenuPageState extends State<MainMenuPage>
                             topLeft: Radius.circular(40),
                             topRight: Radius.circular(40)),
                       ),
-                  child: MyDailyMedication(),
+                  child: DetailsPage(payload: null),
                     ),
                   Container(
                     height: double.infinity,
