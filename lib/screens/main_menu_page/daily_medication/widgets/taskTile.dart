@@ -25,7 +25,3 @@ class TaskTile extends StatelessWidget {
     );
   }
 }
-
-//
-// final bool checkboxState;
-// final Function(bool?) toggleCheckboxState;

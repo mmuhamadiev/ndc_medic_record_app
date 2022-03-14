@@ -6,8 +6,6 @@ import 'package:ndc_medic_record_app/screens/drawer_page/end_drawer.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/bottom_navigation.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/screens/task_screen.dart';
-import 'package:ndc_medic_record_app/screens/main_menu_page/medication_notification/details_page.dart';
-import 'package:ndc_medic_record_app/screens/main_menu_page/medication_notification/home_page.dart';
 import '../login_registration_page/login_components/calculator_brain.dart';
 
 enum Gender {
@@ -78,6 +76,7 @@ class _MainMenuPageState extends State<MainMenuPage>
       resizeToAvoidBottomInset: false,
       key: scaffoldKey,
       appBar: AppBar(
+        backgroundColor: kStaticMainColor,
         leading: Builder(builder: (context) {
           return IconButton(
               onPressed: () => Scaffold.of(context).openDrawer(),
@@ -247,7 +246,7 @@ class _MainMenuPageState extends State<MainMenuPage>
                             topLeft: Radius.circular(40),
                             topRight: Radius.circular(40)),
                       ),
-                  child: DetailsPage(payload: null),
+                  child: TaskScreen(),
                     ),
                   Container(
                     height: double.infinity,

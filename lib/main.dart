@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/models/task_data.dart';
-import 'package:ndc_medic_record_app/screens/main_menu_page/medication_notification/services/notification_service.dart';
+import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/services/notification_service.dart';
 import 'package:provider/provider.dart';
-import 'screens/onboarding_page/on_boarding_screen.dart';
 import 'on_generate_route.dart';
 
 Future<void> main() async {

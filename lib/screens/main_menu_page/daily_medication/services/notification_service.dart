@@ -4,8 +4,6 @@ import 'package:ndc_medic_record_app/main.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import '../details_page.dart';
-
 class NotificationService {
   // Singleton pattern
   static final NotificationService _notificationService =
@@ -118,9 +116,12 @@ class NotificationService {
     await flutterLocalNotificationsPlugin.cancelAll();
   }
 
+  Future<void> cancelNotifications(int id) async {
+    await flutterLocalNotificationsPlugin.cancel(id);
+  }
+
   Future<void> onSelectNotification(String? payload) async {
     await navigatorKey.currentState
-        ?.push(
-        MaterialPageRoute(builder: (_) => DetailsPage(payload: payload)));
+        ?.pushNamed('/main_menu');
   }
 }

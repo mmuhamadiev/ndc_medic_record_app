@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:ndc_medic_record_app/screens/main_menu_page/medication_notification/home_page.dart';
 
-class DetailsPage extends StatelessWidget {
+class DetailsPage extends StatefulWidget {
+
+  static const routeName = '/detailsPage';
+
   const DetailsPage({
     Key? key,
     required this.payload,
@@ -11,42 +13,37 @@ class DetailsPage extends StatelessWidget {
   final String? payload;
 
   @override
+  State<DetailsPage> createState() => _DetailsPageState();
+}
+
+class _DetailsPageState extends State<DetailsPage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => HomePage(),
-            ),
-          );
-        },
-        child: Icon(Icons.add, size: 40,),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text("Event Reminder"),
+        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(24.0),
-        child: ListView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if (payload != null) _buildNotifiedReminderCard(payload!),
-                if (payload == null)
-                  Padding(
-                    padding: EdgeInsets.all(24.0),
-                    child: Text(
-                      "No reminders yet!",
-                      style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.black54,
-                      ),
-                    ),
-                  )
-              ],
-            ),
+            if (widget.payload != null) _buildNotifiedReminderCard(widget.payload!),
+            if (widget.payload == null)
+              Padding(
+                padding: EdgeInsets.all(24.0),
+                child: Text(
+                  "No reminders yet!",
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black54,
+                  ),
+                ),
+              )
           ],
         ),
       ),
