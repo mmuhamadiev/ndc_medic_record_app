@@ -260,7 +260,10 @@ class _MainMenuPageState extends State<MainMenuPage>
                     ),
                     child: Column(
                       children: [
-                        Text('Analysis List'),
+                        Text('Analysis List',style: TextStyle(
+                          fontSize: 30,
+                          backgroundColor: Colors.grey.shade200
+                        ),),
                         Expanded(
                           child: CustomScrollView(
                             shrinkWrap: true,
@@ -298,6 +301,44 @@ class _MainMenuPageState extends State<MainMenuPage>
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(40),
                           topRight: Radius.circular(40)),
+                    ),
+                    child: ListView(
+                      children: [
+                        Column(
+                          children: [
+                            Text('About clinic',textAlign: TextAlign.center,),
+                            Text('History',textAlign: TextAlign.left,),
+                            Container(
+                              width: 350,
+                              height: 150,
+                              margin: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: kStaticMainColorOpacity,
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.'),
+                              ),
+                            ),
+                            Text('Contacts',textAlign: TextAlign.left,),
+                            Container(
+                              width: 350,
+                              height: 150,
+                              margin: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: kStaticMainColorOpacity,
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Text('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting.'),
+                              ),
+                            ),
+                            Text('Location',textAlign: TextAlign.left,),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ]),
