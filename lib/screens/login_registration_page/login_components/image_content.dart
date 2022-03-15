@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ndc_medic_record_app/screens/login_registration_page/login_components/login_constraints.dart';
+import 'package:ndc_medic_record_app/constraints.dart';
 
 class ImageContent extends StatelessWidget {
   ImageContent({required this.image, required this.label});

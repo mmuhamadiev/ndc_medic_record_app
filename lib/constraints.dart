@@ -24,3 +24,17 @@ const kInputDecoration = InputDecoration(
     ),
   ),
 );
+
+const kTextWhiteColor = Colors.white;
+
+const kTextStyle = TextStyle(
+    fontSize: 20, color: kTextWhiteColor, fontWeight: FontWeight.bold);
+
+const kNumberTextStyle =
+TextStyle(fontSize: 30, fontWeight: FontWeight.w900, color: Colors.white);
+
+const kResultTextStyle = TextStyle(fontSize: 50, color: kStaticMainColor);
+
+const kResultSmallTextStyle = TextStyle(fontSize: 30,color: Colors.white);
+
+const kResultLargeTextStyle = TextStyle(fontSize: 100,color: Colors.white);

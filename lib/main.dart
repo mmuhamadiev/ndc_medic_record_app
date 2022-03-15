@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/models/task_data.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/services/notification_service.dart';
@@ -10,6 +9,9 @@ Future<void> main() async {
   NotificationService notificationService = NotificationService();
   await notificationService.init();
   await notificationService.requestIOSPermissions();
+  // if (defaultTargetPlatform == TargetPlatform.android) {
+  //   AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
+  // }
   runApp(MyApp());
 }
 
@@ -30,7 +32,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.green,
         ),
-        //home: OnBoarding(),
         initialRoute: '/',
         onGenerateRoute: OnGenerateRoutes.generatedRout,
       ),

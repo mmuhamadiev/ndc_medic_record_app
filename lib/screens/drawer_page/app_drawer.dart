@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../constraints.dart';
 import '../login_registration_page/login_components/image_content.dart';
-import '../login_registration_page/login_components/login_constraints.dart';
 import '../login_registration_page/login_components/reusable_card.dart';
 import '../login_registration_page/login_components/round_icon_button.dart';
 
@@ -55,8 +54,8 @@ class _AppDrawerState extends State<AppDrawer> {
                           label: 'Male',
                         ),
                         colour: selectedGender == Gender.male
-                            ? kActiveColor
-                            : kInactiveColor),
+                            ? kStaticMainColor
+                            : kStaticMainColorOpacity),
                   ),
                   Expanded(
                     child: ReusableCard(
@@ -70,8 +69,8 @@ class _AppDrawerState extends State<AppDrawer> {
                         label: 'Female',
                       ),
                       colour: selectedGender == Gender.female
-                          ? kActiveColor
-                          : kInactiveColor,
+                          ? kStaticMainColor
+                          : kStaticMainColorOpacity,
                     ),
                   ),
                 ],

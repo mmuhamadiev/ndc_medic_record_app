@@ -19,7 +19,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             (Route<dynamic> route) => false);
   }
 
-  final onboardingPagesList = [
+  final onBoardingPagesList = [
     PageViewModel(
       title: "Title of first page",
       body: "Here you can write the description of the page, to explain someting...",
@@ -69,14 +69,14 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
   Widget build(BuildContext context) {
     return IntroductionScreen(
       globalBackgroundColor: Colors.white,
-      pages: onboardingPagesList,
+      pages: onBoardingPagesList,
       onDone: () => _onIntroEnd(context),
       showBackButton: false,
       showSkipButton: false,
       next: const Material(
         color: kStaticMainColor,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20),bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
-        child: Padding(
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20),bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
+        child: const Padding(
           padding: EdgeInsets.only(left: 20, right: 20,top: 10,bottom: 10),
           child: Text('Next',style: TextStyle(color: Colors.white,fontSize: 25),),
         ),
@@ -87,7 +87,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
           size: const Size.square(10.0),
           activeSize: const Size(20.0, 10.0),
           activeColor: kStaticMainColor,
-          color: Colors.black26,
+          color:  Colors.black26,
           spacing: const EdgeInsets.symmetric(horizontal: 3.0),
           activeShape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25.0)
@@ -105,9 +105,9 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       ),
       done: const Material(
         color: kStaticMainColor,
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20),bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20,top: 10,bottom: 10),
+        borderRadius: const BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20),bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
+        child: const Padding(
+          padding: EdgeInsets.only(left: 20, right: 20,top: 10,bottom: 10),
           child: Text('Sing-in',style: TextStyle(color: Colors.white,fontSize: 25),),
         ),
       ),
