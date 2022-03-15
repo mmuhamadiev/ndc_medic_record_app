@@ -85,9 +85,7 @@ class _AddListTileState extends State<AddListTile> {
         getDateTimeComponents(),
       );
 
-      if (_textEditingController.text == null) {
-        Navigator.pop(context);
-      } else if (_textEditingController.text == '') {
+      if (_textEditingController.text == '') {
         Navigator.pop(context);
       } else {
         if(segmentedControlGroupValue == 0) {
@@ -282,6 +280,7 @@ class _AddListTileState extends State<AddListTile> {
     } else if (segmentedControlGroupValue == 2) {
       return DateTimeComponents.dayOfWeekAndTime;
     }
+    return null;
   }
 
   void selectEventDate() async {

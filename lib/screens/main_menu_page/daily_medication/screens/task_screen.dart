@@ -6,11 +6,23 @@ import '../widgets/TaskList.dart';
 import '../widgets/add_list_tile.dart';
 
 class TaskScreen extends StatelessWidget {
+  static const routeName = '/task_screen';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        backgroundColor: kStaticMainColor,
+        title: Text(
+          'Daily medication',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: kTextWhiteColor,
+              fontSize: 25,
+              fontWeight: FontWeight.bold),
+        ),
+      ),
+      backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddListTile()));
@@ -18,40 +30,31 @@ class TaskScreen extends StatelessWidget {
         backgroundColor: kStaticMainColor,
         child: Icon(Icons.add),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Column(
-            children: [
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                'Daily medication',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                '${Provider.of<TaskData>(context).taskCount} Tasks',
-                style: TextStyle(color: Colors.black, fontSize: 18),
-              ),
-            ],
-          ),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.symmetric(
-                horizontal: 20,
-              ),
-              child: TaskList(),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  '${Provider.of<TaskData>(context).taskCount} Tasks',
+                  style: TextStyle(color: Colors.black, fontSize: 18),
+                ),
+              ],
             ),
-          ),
-        ],
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                ),
+                child: TaskList(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

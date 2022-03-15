@@ -122,6 +122,6 @@ class NotificationService {
 
   Future<void> onSelectNotification(String? payload) async {
     await navigatorKey.currentState
-        ?.pushNamed('/main_menu');
+        ?.pushNamed('/task_screen');
   }
 }

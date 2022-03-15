@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ndc_medic_record_app/constraints.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
+import 'on_boarding_button.dart';
+
 class OnBoardingPage extends StatefulWidget {
 
   static const routeName = '/';
@@ -73,21 +75,14 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       onDone: () => _onIntroEnd(context),
       showBackButton: false,
       showSkipButton: false,
-      next: const Material(
-        color: kStaticMainColor,
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20),bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
-        child: const Padding(
-          padding: EdgeInsets.only(left: 20, right: 20,top: 10,bottom: 10),
-          child: Text('Next',style: TextStyle(color: Colors.white,fontSize: 25),),
-        ),
-      ),
+      next: OnBoardingButton(name: 'Next',),
       skipOrBackFlex: 0,
       isTopSafeArea: true,
       dotsDecorator: DotsDecorator(
           size: const Size.square(10.0),
           activeSize: const Size(20.0, 10.0),
           activeColor: kStaticMainColor,
-          color:  Colors.black26,
+          color: Colors.black26,
           spacing: const EdgeInsets.symmetric(horizontal: 3.0),
           activeShape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25.0)
@@ -103,14 +98,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
       doneStyle: ButtonStyle(
         overlayColor: MaterialStateProperty.all(Colors.transparent),
       ),
-      done: const Material(
-        color: kStaticMainColor,
-        borderRadius: const BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20),bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
-        child: const Padding(
-          padding: EdgeInsets.only(left: 20, right: 20,top: 10,bottom: 10),
-          child: Text('Sing-in',style: TextStyle(color: Colors.white,fontSize: 25),),
-        ),
-      ),
+      done: OnBoardingButton(name: 'Login',),
     );
   }
 }

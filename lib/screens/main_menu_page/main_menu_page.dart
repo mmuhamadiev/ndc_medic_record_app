@@ -43,11 +43,6 @@ class _MainMenuPageState extends State<MainMenuPage>
 
   Widget build(BuildContext context) {
 
-    Color tabBarBGColor = Colors.white;
-
-    if(_currentTabIndex == 0) {
-      tabBarBGColor = Colors.grey.shade200;
-    }
     return Scaffold(
       resizeToAvoidBottomInset: false,
       key: scaffoldKey,
@@ -93,7 +88,7 @@ class _MainMenuPageState extends State<MainMenuPage>
       ),
       bottomNavigationBar: CurvedNavigationBar(
         color: kStaticMainColor,
-        backgroundColor: tabBarBGColor,
+        backgroundColor: Colors.white,
         buttonBackgroundColor: kStaticMainColor,
         onTap: (index) {
           setState(() {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../constraints.dart';
 import '../login_registration_page/login_components/reusable_card.dart';
 
-class EndDrawer extends StatelessWidget {
+class EndDrawer extends StatefulWidget {
 
   String bmiResult;
   String bmiResultText;
@@ -10,6 +10,11 @@ class EndDrawer extends StatelessWidget {
 
   EndDrawer({required this.bmiResult, required this.bmiResultText, required this.interpretation});
 
+  @override
+  State<EndDrawer> createState() => _EndDrawerState();
+}
+
+class _EndDrawerState extends State<EndDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -31,11 +36,11 @@ class EndDrawer extends StatelessWidget {
             cardChild: Column(
               children: [
                 SizedBox(height: 15,),
-                Text('${bmiResultText.toUpperCase()}', style: kResultSmallTextStyle),
+                Text('${widget.bmiResultText.toUpperCase()}', style: kResultSmallTextStyle),
                 SizedBox(height: 10,),
-                Text('${bmiResult}', style: kResultLargeTextStyle),
+                Text('${widget.bmiResult}', style: kResultLargeTextStyle),
                 SizedBox(height: 10,),
-                Text('${interpretation}', style: kResultSmallTextStyle,textAlign: TextAlign.center,),
+                Text('${widget.interpretation}', style: kResultSmallTextStyle,textAlign: TextAlign.center,),
                 SizedBox(height: 15,),
               ],
             ),

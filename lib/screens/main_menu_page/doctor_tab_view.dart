@@ -18,7 +18,6 @@ class DoctorTabView extends StatelessWidget {
               color: kStaticMainColorOpacity,
               borderRadius: BorderRadius.circular(30),
             ),
-            //color: kStaticMainColorOpacity,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

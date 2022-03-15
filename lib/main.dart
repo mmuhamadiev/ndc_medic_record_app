@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/models/task_data.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/services/notification_service.dart';
 import 'package:provider/provider.dart';
@@ -9,9 +11,9 @@ Future<void> main() async {
   NotificationService notificationService = NotificationService();
   await notificationService.init();
   await notificationService.requestIOSPermissions();
-  // if (defaultTargetPlatform == TargetPlatform.android) {
-  //   AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
-  // }
+  if (defaultTargetPlatform == TargetPlatform.android) {
+    AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
+  }
   runApp(MyApp());
 }
 
@@ -29,9 +31,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         navigatorKey: navigatorKey,
         title: 'My Doc',
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-        ),
         initialRoute: '/',
         onGenerateRoute: OnGenerateRoutes.generatedRout,
       ),

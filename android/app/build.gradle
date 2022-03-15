@@ -55,7 +55,7 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.mmuhamadiev.ndc_medic_record_app"
-        minSdkVersion flutterMinSdkVersion
+        minSdkVersion 20
         targetSdkVersion flutterTargetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
