@@ -5,8 +5,7 @@ import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/scr
 import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/screens/analysis_screen.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/screens/task_screen.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/main_menu_page.dart';
-import 'package:ndc_medic_record_app/screens/onboarding_page/on_boarding_screen.dart';
-import 'screens/onboarding_page/on_boarding_screen.dart';
+import 'package:ndc_medic_record_app/screens/onboarding_page/onboard.dart';
 import 'screens/not_found_page/not_found_page.dart';
 import 'screens/login_registration_page/login_page.dart';
 
@@ -14,9 +13,9 @@ import 'screens/login_registration_page/login_page.dart';
 class OnGenerateRoutes {
   static Route<dynamic> generatedRout(RouteSettings settings){
     switch(settings.name) {
-      case OnBoardingPage.routeName:
+      case OnBoard.routeName:
         return MaterialPageRoute(builder: (BuildContext context) {
-          return OnBoardingPage();
+          return OnBoard();
         });
       case LoginPage.routeName:
         return MaterialPageRoute(builder: (BuildContext context) {

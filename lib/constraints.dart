@@ -5,6 +5,9 @@ const kBottomTextStyle = TextStyle(fontSize: 30, color: Colors.white,);
 const kStaticMainColor = Color(0xff00A651);
 const kStaticMainColorOpacity = Color(0x8000a651);
 
+Color kWhite = Color(0xFFFFFFFF);
+Color kBlack = Color(0xFF000000);
+
 const kInputDecoration = InputDecoration(
   filled: false,
   fillColor: kStaticMainColorOpacity,

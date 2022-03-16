@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ndc_medic_record_app/constraints.dart';
 
 class AnalysisScreen extends StatelessWidget {
   static const routeName = '/analysis_screen';
@@ -30,6 +31,7 @@ class AnalysisScreen extends StatelessWidget {
         title: Text(
           'Analysis List'
         ),
+        backgroundColor: kStaticMainColor,
       ),
       body: Column(
           children: [

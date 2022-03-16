@@ -1,11 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/models/task_data.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/services/notification_service.dart';
 import 'package:provider/provider.dart';
 import 'on_generate_route.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+int? isviewed;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   NotificationService notificationService = NotificationService();
@@ -14,6 +17,11 @@ Future<void> main() async {
   if (defaultTargetPlatform == TargetPlatform.android) {
     AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
   }
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  isviewed = prefs.getInt('/onBoarding');
   runApp(MyApp());
 }
 
@@ -31,7 +39,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         navigatorKey: navigatorKey,
         title: 'My Doc',
-        initialRoute: '/',
+        initialRoute: isviewed != 0 ? '/' : '/login',
         onGenerateRoute: OnGenerateRoutes.generatedRout,
       ),
     );

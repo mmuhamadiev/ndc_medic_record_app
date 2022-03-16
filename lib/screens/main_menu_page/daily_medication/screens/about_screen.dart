@@ -20,6 +20,7 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: kStaticMainColor,
         title: Text(
           'About Clinic'
         ),
