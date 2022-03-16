@@ -80,7 +80,6 @@ class AboutScreen extends StatelessWidget {
                           },
                         ),
                       ),
-
                     ],
                   ),
           ),
