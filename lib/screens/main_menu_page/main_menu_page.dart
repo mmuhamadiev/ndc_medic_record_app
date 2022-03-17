@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ndc_medic_record_app/constraints.dart';
 import 'package:ndc_medic_record_app/screens/drawer_page/app_drawer.dart';
 import 'package:ndc_medic_record_app/screens/drawer_page/end_drawer.dart';
-import 'package:ndc_medic_record_app/screens/main_menu_page/bottom_navigation.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/tab_view_first_page.dart';
 import '../login_registration_page/login_components/calculator_brain.dart';
@@ -27,8 +26,6 @@ class _MainMenuPageState extends State<MainMenuPage>
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  TabItems bottom_nav_bar = TabItems();
-
   Gender? selectedGender;
   int height = 180;
   int age = 18;
@@ -37,8 +34,8 @@ class _MainMenuPageState extends State<MainMenuPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(
-        length: bottom_nav_bar.returnListOfTabItems().length, vsync: this);
+    _tabController = TabController(animationDuration: Duration(milliseconds: 1000),
+        length: 3, vsync: this);
   }
 
   Widget build(BuildContext context) {
@@ -90,6 +87,8 @@ class _MainMenuPageState extends State<MainMenuPage>
         color: kStaticMainColor,
         backgroundColor: Colors.white,
         buttonBackgroundColor: kStaticMainColor,
+        animationCurve: Curves.easeIn,
+        animationDuration: Duration(milliseconds: 1000),
         onTap: (index) {
           setState(() {
             _tabController.index = index;

@@ -156,10 +156,9 @@ class _OnBoardState extends State<OnBoard> {
                             '/login',
                                 (Route<dynamic> route) => false);
                       }
-
                       _pageController.nextPage(
-                        duration: Duration(milliseconds: 1500),
-                        curve: Curves.elasticIn,
+                        duration: Duration(seconds: 1),
+                        curve: Curves.ease,
                       );
                     },
                     child: Container(
