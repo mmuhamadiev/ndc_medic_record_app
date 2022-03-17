@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1080128359134",
+    "project_id": "ndcmedicrecorapp",
+    "storage_bucket": "ndcmedicrecorapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1080128359134:android:0a549a446d02bffa45904f",
+        "android_client_info": {
+          "package_name": "com.mmuhamadiev.ndc_medic_record_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1080128359134-096regv0727skmvo3h005lt22e176s49.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFdt2M6POpRyjz8dNgiwpOMpxSUGFlkx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1080128359134-096regv0727skmvo3h005lt22e176s49.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

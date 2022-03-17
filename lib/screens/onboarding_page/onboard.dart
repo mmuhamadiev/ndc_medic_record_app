@@ -158,7 +158,7 @@ class _OnBoardState extends State<OnBoard> {
                       }
                       _pageController.nextPage(
                         duration: Duration(seconds: 1),
-                        curve: Curves.ease,
+                        curve: Curves.easeIn,
                       );
                     },
                     child: Container(
