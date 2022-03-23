@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ndc_medic_record_app/constraints.dart';
 import 'package:ndc_medic_record_app/screens/login_registration_page/login_components/bottom_button.dart';
@@ -6,6 +7,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ndc_medic_record_app/screens/login_registration_page/login_components/image_content.dart';
 import 'package:ndc_medic_record_app/screens/login_registration_page/login_components/reusable_card.dart';
 import 'package:ndc_medic_record_app/screens/login_registration_page/login_components/calculator_brain.dart';
+
+import '../../utils/auth_helper.dart';
 
 enum Gender {
   male,
@@ -21,6 +24,11 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
+
+  final messageTextController = TextEditingController();
+  final messagePasswordController = TextEditingController();
+  final _auth = FirebaseAuth.instance;
+  bool showSpinner = false;
   Gender? selectedGender;
   int height = 180;
   int age = 18;
@@ -253,6 +261,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         color: Colors.black38,
                       ),
                     ),
+                    controller: messageTextController,
                   ),
                 ),
                 const SizedBox(height: 5),
@@ -279,15 +288,57 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         color: Colors.black38,
                       ),
                     ),
+                    controller: messagePasswordController,
                   ),
                 ),
                 BottomButton(
                   buttonText: 'Sing-up',
-                  onPress: () {
-                    CalculatorBrain calcBrain = CalculatorBrain(height: height, weight: weight);
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/main_menu',
-                            (Route<dynamic> route) => false);
+                  onPress: ()
+
+                    async{
+                      //CalculatorBrain calcBrain = CalculatorBrain(height: height, weight: weight);
+                      // print(email);
+                      // print(password);
+                      setState(() {
+                        showSpinner = true;
+                      });
+                      try {
+                        //final newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+                        final newUser = await AuthHelper.creteUserWithEmail(
+                            email: messageTextController.text,
+                            password: messagePasswordController.text);
+                        final userData = await FirebaseAuth.instance.currentUser;
+                        await UserHelper.saveUser(userData, selectedGender.toString(), age, height, weight);
+                        if(newUser != null) {
+                          Navigator.of(context).pushNamedAndRemoveUntil(
+                              '/main_menu',
+                                  (Route<dynamic> route) => false);
+                        }
+                        setState(() {
+                          showSpinner = false;
+                        });
+                      }
+                      catch(e) {
+                        print(e);
+                        setState(() {
+                          showSpinner = false;
+                        });
+                        messageTextController.clear();
+                        messagePasswordController.clear();
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Input Error'),
+                            content: Text(e.toString()),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'OK'),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
                   },
                 ),
               ],

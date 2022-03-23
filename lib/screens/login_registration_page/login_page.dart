@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:ndc_medic_record_app/components/bottom_button.dart';
 import 'package:ndc_medic_record_app/constraints.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../utils/auth_helper.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = '/login';
@@ -10,6 +14,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final messageTextController = TextEditingController();
+  final messagePasswordController = TextEditingController();
+  bool showSpinner = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +63,8 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.black38,
                     ),
                   ),
+
+                  controller: messageTextController,
                 ),
               ),
               const SizedBox(height: 20),
@@ -74,6 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.black38,
                     ),
                   ),
+                  controller: messagePasswordController,
                 ),
               ),
               const SizedBox(height: 5),
@@ -106,11 +117,53 @@ class _LoginPageState extends State<LoginPage> {
                   SizedBox(
                     height: 100,
                   ),
-              BottomButton(onPress: () {
-                FocusManager.instance.primaryFocus?.unfocus();
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/main_menu',
-                        (Route<dynamic> route) => false);
+              BottomButton(onPress: ()
+
+                async {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                  //print(email);
+                  //print(password);
+                  setState(() {
+                    showSpinner = true;
+                  });
+                  try {
+                    //final existUser = await _auth.signInWithEmailAndPassword(email: email, password: password);
+                    final existUser = await AuthHelper.signInWithEmail(
+                        email: messageTextController.text,
+                        password: messagePasswordController.text);
+                    if(existUser != null) {
+                      print(existUser);
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/main_menu',
+                              (Route<dynamic> route) => false);
+                    }
+                    setState(() {
+                      showSpinner = false;
+                    });
+                  }
+                  catch(e) {
+                    setState(() {
+                      showSpinner = false;
+                    });
+                    messageTextController.clear();
+                    messagePasswordController.clear();
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Input Error'),
+                        content: Text(e.toString()),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+
+
+
               }, buttonText: 'Sign-in'),
             ]),
           ),

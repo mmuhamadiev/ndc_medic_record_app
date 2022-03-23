@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ndc_medic_record_app/screens/admin_panel/admin_screen.dart';
 import 'package:ndc_medic_record_app/screens/login_registration_page/login_page.dart';
 import 'package:ndc_medic_record_app/screens/login_registration_page/registration_page.dart';
+import 'package:ndc_medic_record_app/screens/main_menu_page/MainScreen.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/screens/about_screen.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/screens/analysis_screen.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/daily_medication/screens/task_screen.dart';
@@ -16,6 +18,14 @@ class OnGenerateRoutes {
       case OnBoard.routeName:
         return MaterialPageRoute(builder: (BuildContext context) {
           return OnBoard();
+        });
+      case MainScreen.routeName:
+        return MaterialPageRoute(builder: (BuildContext context) {
+          return MainScreen();
+        });
+      case AdminScreen.routeName:
+        return MaterialPageRoute(builder: (BuildContext context) {
+          return AdminScreen();
         });
       case LoginPage.routeName:
         return MaterialPageRoute(builder: (BuildContext context) {

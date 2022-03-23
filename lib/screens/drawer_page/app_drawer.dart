@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../constraints.dart';
+import '../../utils/auth_helper.dart';
 import '../login_registration_page/login_components/image_content.dart';
 import '../login_registration_page/login_components/reusable_card.dart';
 import '../login_registration_page/login_components/round_icon_button.dart';
@@ -243,8 +244,9 @@ class _AppDrawerState extends State<AppDrawer> {
                 child: Padding(
                   padding: EdgeInsets.only(left: 10, right: 10),
                   child: TextButton(
-                    onPressed: () {
+                    onPressed: () async{
                       //Navigator.pushNamed(context, '/login');
+                      final user = await AuthHelper.logOut();
                       Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
                     },
                     child: Text('Log out',style: TextStyle(color: Colors.white,fontSize: 15),),
