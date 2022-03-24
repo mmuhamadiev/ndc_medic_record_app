@@ -39,7 +39,7 @@ class UserHelper {
     _db.collection('users').doc(user?.uid).set(userData);
   }
 
-  static updateUserBMI(User? user, String gender, String age, String height, String weight) async{
+  static updateUserBMI(User? user, String gender, int age, int height, int weight) async{
     final userRef = _db.collection('users').doc(user?.uid);
     if((await userRef.get()).exists) {
     await userRef.update({

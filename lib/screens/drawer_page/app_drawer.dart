@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../constraints.dart';
@@ -6,24 +8,77 @@ import '../login_registration_page/login_components/image_content.dart';
 import '../login_registration_page/login_components/reusable_card.dart';
 import '../login_registration_page/login_components/round_icon_button.dart';
 
-enum Gender {
-  male,
-  female,
-}
-
 class AppDrawer extends StatefulWidget {
-  const AppDrawer({Key? key}) : super(key: key);
 
   @override
   State<AppDrawer> createState() => _AppDrawerState();
 }
 
 class _AppDrawerState extends State<AppDrawer> {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if(snapshot.hasData && snapshot.data != null) {
+            return StreamBuilder<DocumentSnapshot>(
+              stream: FirebaseFirestore.instance.collection("users").doc(snapshot.data?.uid).snapshots() ,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if(snapshot.hasData && snapshot.data != null) {
+                  final userDoc = snapshot.data;
+                  final user = userDoc.data();
+                  Gender gender() {
+                    if(user['gender'] == 'female') {
+                      return Gender.female;
+                    }
+                    else {
+                      return Gender.male;
+                    }
+                  }
+                  int age = user['age'];
+                  int height = user['height'];
+                  int weight = user['weight'];
+                  String email = user['email'];
+                  if(snapshot.hasData && snapshot.data != null) {
+                    return BMI(age: age, selectedGender: gender(), height: height, weight: weight, email: email,);
+                  }
+                  else {
+                    return BMI(age: 18, selectedGender: Gender.male, height: 180, weight: 65,email: 'user email',);
+                  }
+                }else{
+                  return Material(
+                    child: Center(child: CircularProgressIndicator(),),
+                  );
+                }
+              },
+            );
+          }
+          return BMI(age: 18, selectedGender: Gender.male, height: 180, weight: 65,email: 'user email',);
+        }
+    );
+  }
+}
 
+enum Gender {
+  male,
+  female,
+}
+
+class BMI extends StatefulWidget {
+
+  String email;
   Gender? selectedGender;
-  int height = 180;
-  int age = 18;
-  int weight = 65;
+  int height;
+  int age;
+  int weight;
+
+  BMI({Key? key,required this.email, required this.selectedGender, required this.height, required this.age, required this.weight}) : super(key: key);
+
+  @override
+  State<BMI> createState() => _BMIState();
+}
+
+class _BMIState extends State<BMI> {
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +93,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
                     tileColor: kStaticMainColorOpacity,
                     leading: Icon(Icons.account_circle_rounded,size: 35,),
-                    title: Text('user email',style: TextStyle(fontSize: 18),),
+                    title: Text('${widget.email}',style: TextStyle(fontSize: 18),),
                   )
               ),
               Row(
@@ -47,14 +102,14 @@ class _AppDrawerState extends State<AppDrawer> {
                     child: ReusableCard(
                         onPress: () {
                           setState(() {
-                            selectedGender = Gender.male;
+                            widget.selectedGender = Gender.male;
                           });
                         },
                         cardChild: ImageContent(
                           image: Image.asset('assets/images/male.png',scale: 1.4,),
                           label: 'Male',
                         ),
-                        colour: selectedGender == Gender.male
+                        colour: widget.selectedGender == Gender.male
                             ? kStaticMainColor
                             : kStaticMainColorOpacity),
                   ),
@@ -62,14 +117,14 @@ class _AppDrawerState extends State<AppDrawer> {
                     child: ReusableCard(
                       onPress: () {
                         setState(() {
-                          selectedGender = Gender.female;
+                          widget.selectedGender = Gender.female;
                         });
                       },
                       cardChild: ImageContent(
                         image: Image.asset('assets/images/female.png',scale: 1.4,),
                         label: 'Female',
                       ),
-                      colour: selectedGender == Gender.female
+                      colour: widget.selectedGender == Gender.female
                           ? kStaticMainColor
                           : kStaticMainColorOpacity,
                     ),
@@ -92,7 +147,7 @@ class _AppDrawerState extends State<AppDrawer> {
                       textBaseline: TextBaseline.alphabetic,
                       children: [
                         Text(
-                          '$height',
+                          '${widget.height}',
                           style: kNumberTextStyle,
                         ),
                         Text(
@@ -109,12 +164,12 @@ class _AppDrawerState extends State<AppDrawer> {
                       child: Slider(
                         activeColor: Colors.green,
                         inactiveColor: Color(0xFFFFFFFF),
-                        value: height.toDouble(),
+                        value: widget.height.toDouble(),
                         min: 50,
                         max: 220,
                         onChanged: (double newValue) {
                           setState(() {
-                            height = newValue.round();
+                            widget.height = newValue.round();
                           });
                         },
                       ),
@@ -139,7 +194,7 @@ class _AppDrawerState extends State<AppDrawer> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                '$weight',
+                                '${widget.weight}',
                                 style: kNumberTextStyle,
                               ),
                             ],
@@ -151,7 +206,7 @@ class _AppDrawerState extends State<AppDrawer> {
                                 icon: FontAwesomeIcons.minus,
                                 func: () {
                                   setState(() {
-                                    weight--;
+                                    widget.weight--;
                                   });
                                 },
                               ),
@@ -159,7 +214,7 @@ class _AppDrawerState extends State<AppDrawer> {
                                 icon: FontAwesomeIcons.plus,
                                 func: () {
                                   setState(() {
-                                    weight++;
+                                    widget.weight++;
                                   });
                                 },
                               ),
@@ -185,7 +240,7 @@ class _AppDrawerState extends State<AppDrawer> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                '$age',
+                                '${widget.age}',
                                 style: kNumberTextStyle,
                               ),
                             ],
@@ -197,7 +252,7 @@ class _AppDrawerState extends State<AppDrawer> {
                                 icon: FontAwesomeIcons.minus,
                                 func: () {
                                   setState(() {
-                                    age--;
+                                    widget.age--;
                                   });
                                 },
                               ),
@@ -205,7 +260,7 @@ class _AppDrawerState extends State<AppDrawer> {
                                 icon: FontAwesomeIcons.plus,
                                 func: () {
                                   setState(() {
-                                    age++;
+                                    widget.age++;
                                   });
                                 },
                               ),
@@ -228,7 +283,17 @@ class _AppDrawerState extends State<AppDrawer> {
                   child: Builder(
                       builder: (context) {
                         return TextButton(
-                          onPressed: () {
+                          onPressed: () async{
+                            final userData = await FirebaseAuth.instance.currentUser;
+                            String gender() {
+                              if(widget.selectedGender == Gender.female) {
+                                return 'female';
+                              }
+                              else {
+                                return 'male';
+                              }
+                            }
+                            await UserHelper.updateUserBMI(userData, gender(), widget.age, widget.height, widget.weight);
                             Scaffold.of(context).openEndDrawer();
                           },
                           child: Text('Recalculate',style: TextStyle(color: Colors.white,fontSize: 15),),

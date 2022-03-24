@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:ndc_medic_record_app/components/bottom_button.dart';
 import 'package:ndc_medic_record_app/constraints.dart';
@@ -5,6 +6,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../utils/auth_helper.dart';
+import '../admin_panel/admin_screen.dart';
+import '../main_menu_page/main_menu_page.dart';
 
 class LoginPage extends StatefulWidget {
   static const routeName = '/login';
@@ -14,6 +17,19 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  CollectionReference _collectionRef =
+  FirebaseFirestore.instance.collection('users');
+
+  Future<void> getData() async {
+    // Get docs from collection reference
+    QuerySnapshot querySnapshot = await _collectionRef.get();
+
+    // Get data from docs and convert map to List
+    final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+    print(allData);
+  }
 
   final messageTextController = TextEditingController();
   final messagePasswordController = TextEditingController();
@@ -118,11 +134,8 @@ class _LoginPageState extends State<LoginPage> {
                     height: 100,
                   ),
               BottomButton(onPress: ()
-
                 async {
                   FocusManager.instance.primaryFocus?.unfocus();
-                  //print(email);
-                  //print(password);
                   setState(() {
                     showSpinner = true;
                   });
@@ -132,10 +145,44 @@ class _LoginPageState extends State<LoginPage> {
                         email: messageTextController.text,
                         password: messagePasswordController.text);
                     if(existUser != null) {
-                      print(existUser);
-                      Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/main_menu',
-                              (Route<dynamic> route) => false);
+                      // final userID = await FirebaseAuth.instance.currentUser?.uid;
+                      // print(userID);
+                      // print(FirebaseFirestore.instance.collection("users").doc(userID).snapshots());
+                      // getData();
+                      //await StreamBuilder<DocumentSnapshot>(
+                      //  stream: FirebaseFirestore.instance.collection("users").doc(userID).snapshots(),
+                      //  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        //  if(snapshot.hasData && snapshot.data != null) {
+                       //     final role = snapshot.data?.docs.data()['role'];
+                       //     print(role);
+                            //if(role == 'admin') {
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  '/mainScreen',
+                                      (Route<dynamic> route) => false);
+                            //}else{
+                            //  Navigator.of(context).pushNamedAndRemoveUntil(
+                            //      '/main_menu',
+                            //          (Route<dynamic> route) => false);
+                            //}
+                          //}else{
+                          //  return Material(
+                          //    child: Center(child: CircularProgressIndicator(),),
+                          //  );
+                          //}
+                          //return Material(
+                         //   child: Center(child: CircularProgressIndicator(),),
+                        //  );
+                       // },
+                      //);
+                      // if(role == 'admin') {
+                      //   Navigator.of(context).pushNamedAndRemoveUntil(
+                      //       '/adminScreen',
+                      //           (Route<dynamic> route) => false);
+                      // }else{
+                      //   Navigator.of(context).pushNamedAndRemoveUntil(
+                      //       '/main_menu',
+                      //           (Route<dynamic> route) => false);
+                      // }
                     }
                     setState(() {
                       showSpinner = false;

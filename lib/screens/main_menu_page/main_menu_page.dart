@@ -26,11 +26,6 @@ class _MainMenuPageState extends State<MainMenuPage>
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  Gender? selectedGender;
-  int height = 180;
-  int age = 18;
-  int weight = 65;
-
   @override
   void initState() {
     super.initState();
@@ -60,14 +55,7 @@ class _MainMenuPageState extends State<MainMenuPage>
         ],
       ),
       drawer: AppDrawer(),
-      endDrawer: EndDrawer(
-        bmiResult:
-            CalculatorBrain(height: height, weight: weight).calculateBMI(),
-        bmiResultText:
-            CalculatorBrain(height: height, weight: weight).getResult(),
-        interpretation: CalculatorBrain(height: height, weight: weight)
-            .getResultInterpretation(),
-      ),
+      endDrawer: EndDrawer(),
       body: TabBarView(
         physics: NeverScrollableScrollPhysics(),
         controller: _tabController,
@@ -75,11 +63,11 @@ class _MainMenuPageState extends State<MainMenuPage>
           FirstTabView(),
           Container(
             color: Colors.white,
-            child: Center(child: Text('2')),
+            child: Center(child: Text('Record')),
           ),
           Container(
             color: Colors.white,
-            child: Center(child: Text('3')),
+            child: Center(child: Text('Chat')),
           ),
         ],
       ),

@@ -308,10 +308,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             email: messageTextController.text,
                             password: messagePasswordController.text);
                         final userData = await FirebaseAuth.instance.currentUser;
-                        await UserHelper.saveUser(userData, selectedGender.toString(), age, height, weight);
+                        String gender() {
+                          if(selectedGender == Gender.female) {
+                            return 'female';
+                          }
+                          else {
+                            return 'male';
+                          }
+                        }
+                        await UserHelper.saveUser(userData, gender(), age, height, weight);
                         if(newUser != null) {
                           Navigator.of(context).pushNamedAndRemoveUntil(
-                              '/main_menu',
+                              '/mainScreen',
                                   (Route<dynamic> route) => false);
                         }
                         setState(() {

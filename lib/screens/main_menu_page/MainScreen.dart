@@ -15,21 +15,19 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if(snapshot.hasData && snapshot.data != null) {
-            //UserHelper.saveUser(snapshot.data,'', '', '', '');
             return StreamBuilder<DocumentSnapshot>(
               stream: FirebaseFirestore.instance.collection("users").doc(snapshot.data?.uid).snapshots() ,
-              builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot){
+              builder: (BuildContext context, AsyncSnapshot snapshot){
                 if(snapshot.hasData && snapshot.data != null) {
-                  final userDoc = FirebaseFirestore.instance.collection("users").doc(snapshot.data?.id).collection('role');
-                  //final user = userDoc?.data();
-                  if(userDoc == 'admin') {
+                  final userDoc = snapshot.data;
+                  final user = userDoc.data();
+                  if(user['role'] == 'admin') {
                     return AdminScreen();
                   }else{
                     return MainMenuPage();

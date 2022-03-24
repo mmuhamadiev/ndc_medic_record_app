@@ -1,20 +1,69 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../constraints.dart';
+import '../login_registration_page/login_components/calculator_brain.dart';
 import '../login_registration_page/login_components/reusable_card.dart';
 
 class EndDrawer extends StatefulWidget {
-
-  String bmiResult;
-  String bmiResultText;
-  String interpretation;
-
-  EndDrawer({required this.bmiResult, required this.bmiResultText, required this.interpretation});
 
   @override
   State<EndDrawer> createState() => _EndDrawerState();
 }
 
 class _EndDrawerState extends State<EndDrawer> {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if(snapshot.hasData && snapshot.data != null) {
+            return StreamBuilder<DocumentSnapshot>(
+              stream: FirebaseFirestore.instance.collection("users").doc(snapshot.data?.uid).snapshots() ,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if(snapshot.hasData && snapshot.data != null) {
+                  final userDoc = snapshot.data;
+                  final user = userDoc.data();
+
+
+                  int height = user['height'];
+                  int weight = user['weight'];
+                  CalculatorBrain calcBrain = CalculatorBrain(height: height, weight: weight);
+                  if(snapshot.hasData && snapshot.data != null) {
+                    return BMIresul(bmiResult: calcBrain.calculateBMI(), bmiResultText: calcBrain.getResult(), interpretation: calcBrain.getResultInterpretation());
+                  }
+                  else {
+                    return BMIresul(bmiResult: '20.1', bmiResultText: 'Overweight', interpretation: 'You have a lower than normal body weight. You can eat bit more');
+                  }
+                }else{
+                  return Material(
+                    child: Center(child: CircularProgressIndicator(),),
+                  );
+                }
+              },
+            );
+          }
+          return BMIresul(bmiResult: '20.1', bmiResultText: 'Overweight', interpretation: 'You have a lower than normal body weight. You can eat bit more');
+        }
+    );
+  }
+}
+
+
+
+class BMIresul extends StatefulWidget {
+
+  String bmiResult;
+  String bmiResultText;
+  String interpretation;
+
+  BMIresul({required this.bmiResult, required this.bmiResultText, required this.interpretation});
+
+  @override
+  State<BMIresul> createState() => _BMIresulState();
+}
+
+class _BMIresulState extends State<BMIresul> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -48,7 +97,6 @@ class _EndDrawerState extends State<EndDrawer> {
           SizedBox(height: 20,),
         ],
       ),
-      //ResultPage(bmiResult: widget.bmiResult, bmiResultText: widget.bmiResultText, interpretation: widget.interpretation,),
     );
   }
 }
