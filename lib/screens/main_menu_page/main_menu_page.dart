@@ -4,7 +4,6 @@ import 'package:ndc_medic_record_app/screens/drawer_page/app_drawer.dart';
 import 'package:ndc_medic_record_app/screens/drawer_page/end_drawer.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/tab_view_first_page.dart';
-import '../login_registration_page/login_components/calculator_brain.dart';
 
 enum Gender {
   male,

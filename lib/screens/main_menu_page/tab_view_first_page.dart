@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/doctor_tab_view.dart';
 import '../../constraints.dart';
 
@@ -18,7 +19,9 @@ class _FirstTabViewState extends State<FirstTabView> with TickerProviderStateMix
       color: Colors.white,
       child: Column(
         children: [
-          Text('Our Doctor\'s'),
+          Text('Our Doctor\'s',style: GoogleFonts.montserrat(fontSize: 25,
+            fontWeight: FontWeight.w700,
+            fontStyle: FontStyle.normal,)),
           DoctorTabView(),
           Text('Our Services'),
           Expanded(

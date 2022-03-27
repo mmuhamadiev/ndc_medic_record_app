@@ -29,7 +29,7 @@ class AnalysisScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Analysis List'
+          'Analysis List',
         ),
         backgroundColor: kStaticMainColor,
       ),
