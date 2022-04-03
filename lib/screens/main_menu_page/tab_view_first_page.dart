@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/doctor_tab_view.dart';
@@ -90,7 +89,6 @@ class _FirstTabViewState extends State<FirstTabView> with TickerProviderStateMix
                         ),
                       ],
                     ),
-
                   ],
                 ),
             ),

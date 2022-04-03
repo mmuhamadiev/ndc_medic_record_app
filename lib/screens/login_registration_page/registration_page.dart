@@ -6,8 +6,6 @@ import 'package:ndc_medic_record_app/screens/login_registration_page/login_compo
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ndc_medic_record_app/screens/login_registration_page/login_components/image_content.dart';
 import 'package:ndc_medic_record_app/screens/login_registration_page/login_components/reusable_card.dart';
-import 'package:ndc_medic_record_app/screens/login_registration_page/login_components/calculator_brain.dart';
-
 import '../../utils/auth_helper.dart';
 
 enum Gender {
@@ -16,7 +14,6 @@ enum Gender {
 }
 
 class RegistrationPage extends StatefulWidget {
-
   static const routeName = '/registration';
 
   @override
@@ -24,10 +21,8 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
-
   final messageTextController = TextEditingController();
   final messagePasswordController = TextEditingController();
-  final _auth = FirebaseAuth.instance;
   bool showSpinner = false;
   Gender? selectedGender;
   int height = 180;
@@ -46,7 +41,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
         ),
         backgroundColor: kStaticMainColor,
       ),
-      //resizeToAvoidBottomInset: false,
       body: GestureDetector(
         onTap: () {
           FocusManager.instance.primaryFocus?.unfocus();
@@ -69,7 +63,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             });
                           },
                           cardChild: ImageContent(
-                            image: Image.asset('assets/images/male.png',scale: 1.4,),
+                            image: Image.asset(
+                              'assets/images/male.png',
+                              scale: 1.4,
+                            ),
                             label: 'Male',
                           ),
                           colour: selectedGender == Gender.male
@@ -84,7 +81,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                           });
                         },
                         cardChild: ImageContent(
-                          image: Image.asset('assets/images/female.png',scale: 1.4,),
+                          image: Image.asset(
+                            'assets/images/female.png',
+                            scale: 1.4,
+                          ),
                           label: 'Female',
                         ),
                         colour: selectedGender == Gender.female
@@ -98,12 +98,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   cardChild: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Text(
                         'HEIGHT',
                         style: kTextStyle,
                       ),
-                      SizedBox(height: 5,),
+                      SizedBox(
+                        height: 5,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -121,8 +125,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       ),
                       SliderTheme(
                         data: SliderTheme.of(context).copyWith(
-                          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15),
-                          overlayShape: RoundSliderOverlayShape(overlayRadius: 30),
+                          thumbShape:
+                              RoundSliderThumbShape(enabledThumbRadius: 15),
+                          overlayShape:
+                              RoundSliderOverlayShape(overlayRadius: 30),
                         ),
                         child: Slider(
                           activeColor: Colors.green,
@@ -148,7 +154,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         cardChild: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(height: 10,),
+                            SizedBox(
+                              height: 10,
+                            ),
                             Text(
                               'Weight',
                               style: kTextStyle,
@@ -183,7 +191,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 10,),
+                            SizedBox(
+                              height: 10,
+                            ),
                           ],
                         ),
                         colour: kStaticMainColorOpacity,
@@ -194,7 +204,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         cardChild: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SizedBox(height: 10,),
+                            SizedBox(
+                              height: 10,
+                            ),
                             Text(
                               'Age',
                               style: kTextStyle,
@@ -229,7 +241,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 10,),
+                            SizedBox(
+                              height: 10,
+                            ),
                           ],
                         ),
                         colour: kStaticMainColorOpacity,
@@ -293,60 +307,53 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 ),
                 BottomButton(
                   buttonText: 'Sing-up',
-                  onPress: ()
+                  onPress: () async {
+                    setState(() {
+                      showSpinner = true;
+                    });
+                    try {
+                      final newUser = await AuthHelper.creteUserWithEmail(
+                          email: messageTextController.text,
+                          password: messagePasswordController.text);
+                      final userData = await FirebaseAuth.instance.currentUser;
+                      String gender() {
+                        if (selectedGender == Gender.female) {
+                          return 'female';
+                        } else {
+                          return 'male';
+                        }
+                      }
 
-                    async{
-                      //CalculatorBrain calcBrain = CalculatorBrain(height: height, weight: weight);
-                      // print(email);
-                      // print(password);
+                      await UserHelper.saveUser(
+                          userData, gender(), age, height, weight);
+                      if (newUser != null) {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/mainScreen', (Route<dynamic> route) => false);
+                      }
                       setState(() {
-                        showSpinner = true;
+                        showSpinner = false;
                       });
-                      try {
-                        //final newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-                        final newUser = await AuthHelper.creteUserWithEmail(
-                            email: messageTextController.text,
-                            password: messagePasswordController.text);
-                        final userData = await FirebaseAuth.instance.currentUser;
-                        String gender() {
-                          if(selectedGender == Gender.female) {
-                            return 'female';
-                          }
-                          else {
-                            return 'male';
-                          }
-                        }
-                        await UserHelper.saveUser(userData, gender(), age, height, weight);
-                        if(newUser != null) {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                              '/mainScreen',
-                                  (Route<dynamic> route) => false);
-                        }
-                        setState(() {
-                          showSpinner = false;
-                        });
-                      }
-                      catch(e) {
-                        print(e);
-                        setState(() {
-                          showSpinner = false;
-                        });
-                        messageTextController.clear();
-                        messagePasswordController.clear();
-                        showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Input Error'),
-                            content: Text(e.toString()),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () => Navigator.pop(context, 'OK'),
-                                child: const Text('OK'),
-                              ),
-                            ],
-                          ),
-                        );
-                      }
+                    } catch (e) {
+                      print(e);
+                      setState(() {
+                        showSpinner = false;
+                      });
+                      messageTextController.clear();
+                      messagePasswordController.clear();
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Input Error'),
+                          content: Text(e.toString()),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
                   },
                 ),
               ],
