@@ -17,12 +17,8 @@ class AppDrawer extends StatefulWidget {
 class _AppDrawerState extends State<AppDrawer> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if(snapshot.hasData && snapshot.data != null) {
-            return StreamBuilder<DocumentSnapshot>(
-              stream: FirebaseFirestore.instance.collection("users").doc(snapshot.data?.uid).snapshots() ,
+            return FutureBuilder<DocumentSnapshot>(
+              future: FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser?.uid).get() ,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if(snapshot.hasData && snapshot.data != null) {
                   final userDoc = snapshot.data;
@@ -52,10 +48,6 @@ class _AppDrawerState extends State<AppDrawer> {
                 }
               },
             );
-          }
-          return BMI(age: 18, selectedGender: Gender.male, height: 180, weight: 65,email: 'user email',);
-        }
-    );
   }
 }
 

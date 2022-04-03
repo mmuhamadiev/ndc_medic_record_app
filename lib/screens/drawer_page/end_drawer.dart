@@ -14,12 +14,8 @@ class EndDrawer extends StatefulWidget {
 class _EndDrawerState extends State<EndDrawer> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if(snapshot.hasData && snapshot.data != null) {
-            return StreamBuilder<DocumentSnapshot>(
-              stream: FirebaseFirestore.instance.collection("users").doc(snapshot.data?.uid).snapshots() ,
+            return FutureBuilder<DocumentSnapshot>(
+              future: FirebaseFirestore.instance.collection("users").doc(FirebaseAuth.instance.currentUser?.uid).get() ,
               builder: (BuildContext context, AsyncSnapshot snapshot) {
                 if(snapshot.hasData && snapshot.data != null) {
                   final userDoc = snapshot.data;
@@ -43,10 +39,6 @@ class _EndDrawerState extends State<EndDrawer> {
               },
             );
           }
-          return BMIresul(bmiResult: '20.1', bmiResultText: 'Overweight', interpretation: 'You have a lower than normal body weight. You can eat bit more');
-        }
-    );
-  }
 }
 
 
