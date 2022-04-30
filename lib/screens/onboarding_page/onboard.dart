@@ -1,12 +1,11 @@
+import 'package:ndc_medic_record_app/screens/login_registration_page/login_page.dart';
 import 'package:ndc_medic_record_app/screens/onboarding_page/onboard_model.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../constraints.dart';
 
-
 class OnBoard extends StatefulWidget {
-
   static const routeName = '/';
 
   @override
@@ -18,28 +17,22 @@ class _OnBoardState extends State<OnBoard> {
   late PageController _pageController;
   List<OnboardModel> screens = <OnboardModel>[
     OnboardModel(
-      img: 'assets/images/img-1.png',
-      text: "Belajar Dengan Metode Learning by Doing",
+      img: 'assets/images/Hospital-building-bro.png',
+      text: "Register into MyDoc app",
       desc:
-          "Sebuah metode belajar yang terbuktiampuh dalam meningkatkan produktifitas belajar, Learning by Doing",
-      bg: Colors.white,
-      button: Color(0xFF4756DF),
+          "Get registered into the application, find doctors, list of analysis and more to take care of yourself with us",
     ),
     OnboardModel(
-      img: 'assets/images/img-2.png',
-      text: "Dapatkan Kemudahan Akses Kapanpun dan Dimanapun",
+      img: 'assets/images/Medical-prescription-pana.png',
+      text: "Get or Save results in one place",
       desc:
-          "Tidak peduli dimanapun kamu, semua kursus yang telah kamu ikuti bias kamu akses sepenuhnya",
-      bg: Color(0xFF4756DF),
-      button: Colors.white,
+          "Keep the analysis record history in one app and help doctor to understand more about you",
     ),
     OnboardModel(
-      img: 'assets/images/img-3.png',
-      text: "Gunakan Fitur Kolaborasi Untuk Pengalaman Lebih",
+      img: 'assets/images/First-aid-kit-bro.png',
+      text: "Take medicine on time",
       desc:
-          "Tersedia fitur Kolaborasi dengan tujuan untuk mengasah skill lebih dalam karena bias belajar bersama",
-      bg: Colors.white,
-      button: Color(0xFF4756DF),
+          "Set the time for taking the medicine and get daily notifications, by managing your treatment in that easy way",
     ),
   ];
 
@@ -64,23 +57,43 @@ class _OnBoardState extends State<OnBoard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kWhite,
+      backgroundColor: kStaticOnboardingBgColor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: kWhite,
+        backgroundColor: kStaticOnboardingBgColor,
         elevation: 0.0,
         actions: [
           TextButton(
             onPressed: () {
               _storeOnboardInfo();
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  '/login',
-                      (Route<dynamic> route) => false);
+              Navigator.of(context).pushAndRemoveUntil(
+                  PageRouteBuilder(
+                    pageBuilder: (BuildContext context,
+                        Animation<double> animation,
+                        Animation<double> secondaryAnimation) {
+                      return LoginPage();
+                    },
+                    transitionsBuilder: (BuildContext context,
+                        Animation<double> animation,
+                        Animation<double> secondaryAnimation,
+                        Widget child) {
+                      return Align(
+                        child: SizeTransition(
+                          sizeFactor: animation,
+                          child: child,
+                        ),
+                      );
+                    },
+                    transitionDuration: Duration(milliseconds: 1000),
+                  ),
+                  (Route<dynamic> route) => false);
             },
-            child: Text(
+            child: const Text(
               "Skip",
               style: TextStyle(
                 color: kBlack,
+                fontFamily: 'Grotesque',
+                fontSize: 20,
               ),
             ),
           )
@@ -99,7 +112,7 @@ class _OnBoardState extends State<OnBoard> {
             },
             itemBuilder: (_, index) {
               return Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -120,8 +133,12 @@ class _OnBoardState extends State<OnBoard> {
                                 height: 8,
                                 decoration: BoxDecoration(
                                   color: currentIndex == index
-                                      ? kStaticMainColor
-                                      : kStaticMainColorOpacity,
+                                      ? currentIndex == 1
+                                          ? kOrange
+                                          : kStaticMainColor
+                                      : currentIndex == 1
+                                          ? kDarkBlue
+                                          : kStaticMainColorOpacity,
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),
                               ),
@@ -133,9 +150,9 @@ class _OnBoardState extends State<OnBoard> {
                     screens[index].text,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 27.0,
+                      fontSize: 25.0,
                       fontWeight: FontWeight.bold,
-                      fontFamily: 'Poppins',
+                      fontFamily: 'Grotesque',
                       color: kBlack,
                     ),
                   ),
@@ -143,46 +160,70 @@ class _OnBoardState extends State<OnBoard> {
                     screens[index].desc,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 14.0,
-                      fontFamily: 'Montserrat',
+                      height: 2,
+                      fontSize: 15.0,
+                      fontFamily: 'Grotesque',
                       color: kBlack,
                     ),
                   ),
-                  InkWell(
-                    onTap: () async {
+                  TextButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(
+                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 7),
+                      ),
+                      backgroundColor: MaterialStateProperty.all(currentIndex == 1? kOrange: kStaticMainColor),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                    ),
+                    onPressed: () async {
                       if (index == screens.length - 1) {
                         await _storeOnboardInfo();
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            '/login',
-                                (Route<dynamic> route) => false);
+                        Navigator.of(context).pushAndRemoveUntil(
+                            PageRouteBuilder(
+                              pageBuilder: (BuildContext context,
+                                  Animation<double> animation,
+                                  Animation<double> secondaryAnimation) {
+                                return LoginPage();
+                              },
+                              transitionsBuilder: (BuildContext context,
+                                  Animation<double> animation,
+                                  Animation<double> secondaryAnimation,
+                                  Widget child) {
+                                return Align(
+                                  child: SizeTransition(
+                                    sizeFactor: animation,
+                                    child: child,
+                                  ),
+                                );
+                              },
+                              transitionDuration: Duration(milliseconds: 1000),
+                            ),
+                            (Route<dynamic> route) => false);
                       }
                       _pageController.nextPage(
-                        duration: Duration(seconds: 1),
+                        duration: Duration(milliseconds: 500),
                         curve: Curves.easeIn,
                       );
                     },
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
-                      decoration: BoxDecoration(
-                          color: kStaticMainColor,
-                          borderRadius: BorderRadius.circular(15.0)),
-                      child: Row(mainAxisSize: MainAxisSize.min, children: [
-                        Text(
-                          index == screens.length -1? 'Login': 'Next',
-                          style: TextStyle(
-                              fontSize: 16.0,
-                              color: kWhite),
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Icon(
-                          Icons.arrow_forward_sharp,
-                          color: kWhite,
-                        )
-                      ]),
-                    ),
+                    child: Row(mainAxisSize: MainAxisSize.min, children: [
+                      Text(
+                        index == screens.length - 1 ? 'Login' : 'Next',
+                        style: TextStyle(
+                            fontSize: 25.0,
+                            fontFamily: 'Grotesque',
+                            color: kWhite),
+                      ),
+                      SizedBox(
+                        width: 15.0,
+                      ),
+                      Icon(
+                        Icons.arrow_forward_sharp,
+                        color: kWhite,
+                      )
+                    ]),
                   )
                 ],
               );

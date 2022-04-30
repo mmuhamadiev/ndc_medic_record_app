@@ -1,5 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:ndc_medic_record_app/screens/chat_page/user_list_screen.dart';
+import 'package:ndc_medic_record_app/screens/record_page/user_list_result_screen.dart';
 
 import '../../constraints.dart';
 import '../../utils/auth_helper.dart';
@@ -25,12 +27,22 @@ class _AdminScreenState extends State<AdminScreen>
     super.initState();
   }
 
+  String appBarText() {
+    if(_currentTabIndex == 0) {
+      return 'Result Panel';
+    }
+    else if(_currentTabIndex == 1) {
+      return 'Chat/Users list';
+    }
+    return 'Page';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kStaticMainColor,
-        title: Text('Admin Panel'),
+        title: Text(appBarText()),
         leading: IconButton(
           icon: Icon(Icons.close),
           onPressed: () async {
@@ -46,11 +58,11 @@ class _AdminScreenState extends State<AdminScreen>
         children: [
           Container(
             color: Colors.white,
-            child: Center(child: Text('Record')),
+            child: UserListResultScreen(),
           ),
           Container(
             color: Colors.white,
-            child: Center(child: Text('Chat')),
+            child: UserListScreen(),
           ),
         ],
       ),

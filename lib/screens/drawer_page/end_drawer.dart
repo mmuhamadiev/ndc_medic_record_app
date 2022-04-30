@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -73,11 +74,15 @@ class _BMIresulState extends State<BMIresul> {
           ),
           SizedBox(height: 20,),
           ReusableCard(
-            colour: kStaticMainColorOpacity,
+            colour: kDarkBlue,
             cardChild: Column(
               children: [
                 SizedBox(height: 15,),
-                Text('${widget.bmiResultText.toUpperCase()}', style: kResultSmallTextStyle),
+                AnimatedTextKit(isRepeatingAnimation: true,
+                    repeatForever: true,animatedTexts: [WavyAnimatedText(
+                      widget.bmiResultText.toUpperCase(),
+                      textStyle: kResultSmallTextStyle.copyWith(color: kOrange),
+                    )]),
                 SizedBox(height: 10,),
                 Text('${widget.bmiResult}', style: kResultLargeTextStyle),
                 SizedBox(height: 10,),

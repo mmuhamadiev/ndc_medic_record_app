@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:ndc_medic_record_app/constraints.dart';
+import 'package:ndc_medic_record_app/screens/chat_page/chat_screen.dart';
+import 'package:ndc_medic_record_app/screens/chat_page/user_list_screen.dart';
 import 'package:ndc_medic_record_app/screens/drawer_page/app_drawer.dart';
 import 'package:ndc_medic_record_app/screens/drawer_page/end_drawer.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/tab_view_first_page.dart';
+
+import '../record_page/record_screen.dart';
 
 enum Gender {
   male,
@@ -31,20 +35,33 @@ class _MainMenuPageState extends State<MainMenuPage>
     _tabController = TabController(animationDuration: Duration(milliseconds: 1000),
         length: 3, vsync: this);
   }
+  String appBarText() {
+    if(_currentTabIndex == 0) {
+      return 'Main Page';
+    }
+    else if(_currentTabIndex == 1) {
+      return 'Result Page';
+    }
+    if(_currentTabIndex == 2) {
+      return 'Chat Page';
+    }
+    return 'Page';
+  }
 
   Widget build(BuildContext context) {
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       key: scaffoldKey,
       appBar: AppBar(
+        elevation: _currentTabIndex == 0? 2: 0,
         backgroundColor: kStaticMainColor,
         leading: Builder(builder: (context) {
           return IconButton(
               onPressed: () => Scaffold.of(context).openDrawer(),
               icon: Icon(Icons.account_circle_rounded));
         }),
-        title: Text('Appbar'),
+        title: Text(appBarText(), style: TextStyle(fontFamily: 'Grotesque', fontSize: 25),),
         actions: [
           Builder(builder: (context) {
             return IconButton(
@@ -62,20 +79,20 @@ class _MainMenuPageState extends State<MainMenuPage>
           FirstTabView(),
           Container(
             color: Colors.white,
-            child: Center(child: Text('Record')),
+            child: RecordScreen(receiver: 'mmuhamadiev@mail.ru', leading: false,),
           ),
           Container(
             color: Colors.white,
-            child: Center(child: Text('Chat')),
+            child: ChatScreen(receiver: 'mmuhamadiev@mail.ru', leading: false,),
           ),
         ],
       ),
       bottomNavigationBar: CurvedNavigationBar(
         color: kStaticMainColor,
         backgroundColor: Colors.white,
-        buttonBackgroundColor: kStaticMainColor,
+        buttonBackgroundColor: kOrange,
         animationCurve: Curves.easeIn,
-        animationDuration: Duration(milliseconds: 1000),
+        animationDuration: Duration(seconds: 1),
         onTap: (index) {
           setState(() {
             _tabController.index = index;

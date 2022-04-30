@@ -18,78 +18,80 @@ class AboutScreen extends StatelessWidget {
           'About Clinic'
         ),
       ),
-      body: FutureBuilder<QuerySnapshot>(
-          future:
-          FirebaseFirestore.instance.collection('aboutClinic').get(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final List<DocumentSnapshot> documents =
-                  snapshot.data!.docs;
-              return Column(
-                  children: documents
-                      .map((doc) => Column(
-                    children: [
-                      Text('History',textAlign: TextAlign.left,),
-                      Container(
-                        width: 350,
-                        height: 150,
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: kStaticMainColorOpacity,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(doc['history']),
-                        ),
-                      ),
-                      Text('Contacts',textAlign: TextAlign.left,),
-                      Container(
-                        width: 350,
-                        height: 150,
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: kStaticMainColorOpacity,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(doc['contacts']),
-                        ),
-                      ),
-                      Text('Location',textAlign: TextAlign.left,),
-                      Container(
-                        width: 300,
-                        height: 300,
-                        child: GoogleMap(
-                          buildingsEnabled: false,
-                          mapToolbarEnabled: false,
-                          tiltGesturesEnabled: false,
-                          rotateGesturesEnabled: false,
-                          scrollGesturesEnabled: false,
-                          zoomControlsEnabled: false,
-                          zoomGesturesEnabled: false,
-                          myLocationButtonEnabled: false,
-                          compassEnabled: false,
-                          mapType: MapType.hybrid,
-                          initialCameraPosition: CameraPosition(
-                            target: LatLng(doc['latitude'], doc['longitude']),
-                            zoom: 14.4746,
+      body: SingleChildScrollView(
+        child: FutureBuilder<QuerySnapshot>(
+            future:
+            FirebaseFirestore.instance.collection('aboutClinic').get(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final List<DocumentSnapshot> documents =
+                    snapshot.data!.docs;
+                return Column(
+                    children: documents
+                        .map((doc) => Column(
+                      children: [
+                        Text('History',textAlign: TextAlign.left,),
+                        Container(
+                          width: 350,
+                          height: 150,
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: kStaticMainColorOpacity,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(doc['history']),
                           ),
                         ),
-                      ),
-                    ],
-                  ))
-                      .toList());
-            } else if (snapshot.hasError) {
-              return Text('It\'s Error!');
-            }
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: Colors.green,
-              ),
-            );
-          }),
+                        Text('Contacts',textAlign: TextAlign.left,),
+                        Container(
+                          width: 350,
+                          height: 150,
+                          margin: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: kStaticMainColorOpacity,
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text(doc['contacts']),
+                          ),
+                        ),
+                        Text('Location',textAlign: TextAlign.left,),
+                        Container(
+                          width: 300,
+                          height: 300,
+                          child: GoogleMap(
+                            buildingsEnabled: false,
+                            mapToolbarEnabled: false,
+                            tiltGesturesEnabled: false,
+                            rotateGesturesEnabled: false,
+                            scrollGesturesEnabled: false,
+                            zoomControlsEnabled: false,
+                            zoomGesturesEnabled: false,
+                            myLocationButtonEnabled: false,
+                            compassEnabled: false,
+                            mapType: MapType.hybrid,
+                            initialCameraPosition: CameraPosition(
+                              target: LatLng(doc['latitude'], doc['longitude']),
+                              zoom: 14.4746,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ))
+                        .toList());
+              } else if (snapshot.hasError) {
+                return Text('It\'s Error!');
+              }
+              return Center(
+                child: CircularProgressIndicator(
+                  backgroundColor: Colors.green,
+                ),
+              );
+            }),
+      ),
     );
   }
 }

@@ -1,3 +1,5 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,6 @@ class DoctorTabView extends StatefulWidget {
 }
 
 class _DoctorTabViewState extends State<DoctorTabView> {
-  final _firestore = FirebaseFirestore.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -35,38 +36,48 @@ class _DoctorTabViewState extends State<DoctorTabView> {
                                 height: 200,
                                 margin: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
-                                  color: kStaticMainColorOpacity,
+                                  boxShadow: [BoxShadow(color: Colors.grey.shade300, offset: Offset(5,5))],
+                                  color: kDarkBlue,
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    Container(
-                                      margin: EdgeInsets.only(left: 10),
-                                      width: 100,
-                                      height: 150,
-                                      child: Image.network(
-                                        doc['image'],
-                                        scale: 1.4,
-                                      ),
+                                    CachedNetworkImage(
+                                      imageUrl: doc['image'],
+                                      progressIndicatorBuilder:
+                                          (context, url, downloadProgress) =>
+                                          CircularProgressIndicator(
+                                              value: downloadProgress.progress),
+                                      errorWidget: (context, url, error) => Icon(Icons.error),
                                     ),
-
+                                    SizedBox(width: 10,),
                                     Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text(doc['docName']),
-                                        Text(doc['specialist']),
-                                        Text('${doc['experience']} years Experience'),
-                                        Row(
-                                          children: [
-                                            Container(width: 50,height: 50,child: Icon(Icons.star_border)),
-                                            Column(
-                                              children: [
-                                                Text('Rating'),
-                                                Text(doc['rating']),
-                                              ],
-                                            ),
-                                          ],
+                                        Container(child: Text(doc['docName'],style: TextStyle(fontSize: 20, fontFamily: 'Grotesque',color: kWhite))),
+                                Container(
+                                  height: 60,
+                                  child: AnimatedTextKit(
+                                    repeatForever: true,
+                                    pause: Duration(milliseconds: 0),
+                                      animatedTexts: [
+                                        RotateAnimatedText(doc['specialist'], textStyle: TextStyle(fontSize: 18, fontFamily: 'Grotesque',color: kStaticMainColor)),
+                                        RotateAnimatedText('with', textStyle: TextStyle(fontFamily: 'Grotesque', fontSize: 15, color: kWhite)),
+                                        RotateAnimatedText('     ${doc['experience']} years \n experience', textStyle: TextStyle(fontSize: 18, fontFamily: 'Grotesque',color: kOrange)),
+                                      ]
+                              ),
+                                ),
+                                        //Text('${doc['specialist']} with\n${doc['experience']} years experience',style: TextStyle(fontSize: 15, fontFamily: 'Grotesque',color: kWhite)),
+                                        Container(
+
+                                          child: Row(
+                                            children: [
+                                              Text('Rating ',style: TextStyle(fontSize: 15, fontFamily: 'Grotesque',color: kWhite)),
+                                                  Text(doc['rating'],style: TextStyle(fontSize: 25, fontFamily: 'Grotesque',color: kStaticMainColor)),
+                                                  Container(width: 40,height: 40,child: Icon(Icons.star,color: kOrange,)),
+                                            ],
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -87,45 +98,6 @@ class _DoctorTabViewState extends State<DoctorTabView> {
                 ],
               ),
             );
-    // return StreamBuilder<QuerySnapshot>(
-    //   stream: _firestore.collection('doctorInfo').snapshots(),
-    //   builder: (BuildContext context, AsyncSnapshot snapshot) {
-    //     if (!snapshot.hasData) {
-    //       return Center(
-    //         child: CircularProgressIndicator(
-    //           backgroundColor: Colors.lightBlueAccent,
-    //         ),
-    //       );
-    //     }
-    //     final doctorInfo = snapshot.data.docs;
-    //     List<DoctorList> messageBubbles = [];
-    //     for (var info in doctorInfo) {
-    //       final name = info.data()['docName'];
-    //       final experience = info.data()['experience'];
-    //       final rating = info.data()['rating'];
-    //       final specialist = info.data()['specialist'];
-    //       final image = info.data()['image'];
-    //
-    //       final messageBubble =
-    //       DoctorList(
-    //         name: name,
-    //         experience: experience,
-    //         rating: rating,
-    //         specialist: specialist,
-    //         image: image,
-    //       );
-    //       messageBubbles.add(messageBubble);
-    //     }
-    //
-    //     return Expanded(
-    //       flex: 2,
-    //       child: ListView(
-    //         scrollDirection: Axis.horizontal,
-    //         children: messageBubbles,
-    //       ),
-    //     );
-    //   },
-    // );
   }
 }
 

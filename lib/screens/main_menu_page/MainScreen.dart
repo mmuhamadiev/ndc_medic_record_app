@@ -5,7 +5,7 @@ import 'package:ndc_medic_record_app/screens/admin_panel/admin_screen.dart';
 import 'package:ndc_medic_record_app/screens/login_registration_page/login_page.dart';
 import 'package:ndc_medic_record_app/screens/main_menu_page/main_menu_page.dart';
 
-import '../../utils/auth_helper.dart';
+import '../chat_page/chat_screen.dart';
 
 class MainScreen extends StatefulWidget {
   static const routeName = '/mainScreen';
@@ -30,6 +30,7 @@ class _MainScreenState extends State<MainScreen> {
                   if(user['role'] == 'admin') {
                     return AdminScreen();
                   }else{
+                    ChatScreen(receiver: 'mmuhamadiev@mail.ru', leading: false,);
                     return MainMenuPage();
                   }
                 }else{

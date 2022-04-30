@@ -54,4 +54,29 @@ class UserHelper {
     }
   }
 
+  static updateMessage(String id) async{
+    final userRef = _db.collection('messages').doc(id);
+    if((await userRef.get()).exists) {
+      await userRef.update({
+        'unread': 'read'
+      });
+    }
+    else{
+      print('Message not exists');
+    }
+  }
+
+  static updateUser(User? user, String inChat) async{
+    final userRef = _db.collection('users').doc(user?.uid);
+    if((await userRef.get()).exists) {
+      await userRef.update({
+        'inChat': inChat,
+      });
+    }
+    else{
+      print('User not exists');
+    }
+  }
+
+
 }

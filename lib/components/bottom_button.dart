@@ -10,7 +10,6 @@ class BottomButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 10),
       width: double.infinity,
       height: 80,
       color: kStaticMainColor,

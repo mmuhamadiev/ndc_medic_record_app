@@ -83,9 +83,9 @@ class _BMIState extends State<BMI> {
                   padding: EdgeInsets.only(left: 30, right: 30),
                   child: ListTile(
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-                    tileColor: kStaticMainColorOpacity,
-                    leading: Icon(Icons.account_circle_rounded,size: 35,),
-                    title: Text('${widget.email}',style: TextStyle(fontSize: 18),),
+                    tileColor: kDarkBlue,
+                    leading: Icon(Icons.account_circle_rounded,size: 35,color: kWhite,),
+                    title: Text('${widget.email}',style: TextStyle(fontSize: 18, fontFamily: 'Grotesque',color: kWhite, fontWeight: FontWeight.bold),),
                   )
               ),
               Row(
@@ -102,8 +102,8 @@ class _BMIState extends State<BMI> {
                           label: 'Male',
                         ),
                         colour: widget.selectedGender == Gender.male
-                            ? kStaticMainColor
-                            : kStaticMainColorOpacity),
+                            ? kOrange
+                            : kDarkBlue),
                   ),
                   Expanded(
                     child: ReusableCard(
@@ -117,8 +117,8 @@ class _BMIState extends State<BMI> {
                         label: 'Female',
                       ),
                       colour: widget.selectedGender == Gender.female
-                          ? kStaticMainColor
-                          : kStaticMainColorOpacity,
+                          ? kOrange
+                          : kDarkBlue,
                     ),
                   ),
                 ],
@@ -129,7 +129,7 @@ class _BMIState extends State<BMI> {
                   children: [
                     SizedBox(height: 10,),
                     Text(
-                      'HEIGHT',
+                      'Height',
                       style: kTextStyle,
                     ),
                     SizedBox(height: 5,),
@@ -154,8 +154,8 @@ class _BMIState extends State<BMI> {
                         overlayShape: RoundSliderOverlayShape(overlayRadius: 30),
                       ),
                       child: Slider(
-                        activeColor: Colors.green,
-                        inactiveColor: Color(0xFFFFFFFF),
+                        activeColor: kOrange,
+                        inactiveColor: kWhite,
                         value: widget.height.toDouble(),
                         min: 50,
                         max: 220,
@@ -168,7 +168,7 @@ class _BMIState extends State<BMI> {
                     ),
                   ],
                 ),
-                colour: kStaticMainColorOpacity,
+                colour: kDarkBlue,
               ),
               Row(
                 children: [
@@ -195,6 +195,7 @@ class _BMIState extends State<BMI> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               RoundIconButton(
+                                color: kOrange,
                                 icon: FontAwesomeIcons.minus,
                                 func: () {
                                   setState(() {
@@ -203,6 +204,7 @@ class _BMIState extends State<BMI> {
                                 },
                               ),
                               RoundIconButton(
+                                color: kOrange,
                                 icon: FontAwesomeIcons.plus,
                                 func: () {
                                   setState(() {
@@ -215,7 +217,7 @@ class _BMIState extends State<BMI> {
                           SizedBox(height: 10,),
                         ],
                       ),
-                      colour: kStaticMainColorOpacity,
+                      colour: kDarkBlue,
                     ),
                   ),
                   Expanded(
@@ -241,6 +243,7 @@ class _BMIState extends State<BMI> {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               RoundIconButton(
+                                color: kOrange,
                                 icon: FontAwesomeIcons.minus,
                                 func: () {
                                   setState(() {
@@ -249,6 +252,7 @@ class _BMIState extends State<BMI> {
                                 },
                               ),
                               RoundIconButton(
+                                color: kOrange,
                                 icon: FontAwesomeIcons.plus,
                                 func: () {
                                   setState(() {
@@ -261,14 +265,14 @@ class _BMIState extends State<BMI> {
                           SizedBox(height: 10,),
                         ],
                       ),
-                      colour: kStaticMainColorOpacity,
+                      colour: kDarkBlue,
                     ),
                   ),
                 ],
               ),
               SizedBox(height: 10,),
               Material(
-                color: kStaticMainColor,
+                color: kOrange,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(20),bottomLeft: Radius.circular(20),bottomRight: Radius.circular(20)),
                 child: Padding(
                   padding: EdgeInsets.only(left: 10, right: 10),

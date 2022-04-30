@@ -18,11 +18,9 @@ class _FirstTabViewState extends State<FirstTabView> with TickerProviderStateMix
       color: Colors.white,
       child: Column(
         children: [
-          Text('Our Doctor\'s',style: GoogleFonts.montserrat(fontSize: 25,
-            fontWeight: FontWeight.w700,
-            fontStyle: FontStyle.normal,)),
+          Text('Our Doctor\'s',style: TextStyle(fontSize: 25, fontFamily: 'Grotesque', fontWeight: FontWeight.bold)),
           DoctorTabView(),
-          Text('Our Services'),
+          Text('Our Services', style: TextStyle(fontSize: 25, fontFamily: 'Grotesque', fontWeight: FontWeight.bold)),
           Expanded(
             flex: 4,
             child:  SingleChildScrollView(
@@ -36,7 +34,7 @@ class _FirstTabViewState extends State<FirstTabView> with TickerProviderStateMix
                       height: 150,
                       margin: EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: kStaticMainColorOpacity,
+                        color: kDarkBlue,
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: Column(mainAxisAlignment: MainAxisAlignment.center,
@@ -56,7 +54,7 @@ class _FirstTabViewState extends State<FirstTabView> with TickerProviderStateMix
                           height: 150,
                           margin: EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            color: kStaticMainColorOpacity,
+                            color: kDarkBlue,
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: Column(
@@ -74,7 +72,7 @@ class _FirstTabViewState extends State<FirstTabView> with TickerProviderStateMix
                           height: 150,
                           margin: EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                            color: kStaticMainColorOpacity,
+                            color: kDarkBlue,
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: Column(
