@@ -71,8 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   Column(
                     children: [
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 500),
+                      Container(
                         padding: EdgeInsets.only(left: 30, right: 30),
                         child: TextField(
                           keyboardType: TextInputType.emailAddress,
@@ -100,8 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      AnimatedContainer(
-                        duration: const Duration(milliseconds: 500),
+                      Container(
                         padding: EdgeInsets.only(left: 30, right: 30),
                         child: TextField(
                           style: TextStyle(

@@ -29,7 +29,7 @@ class _OnBoardState extends State<OnBoard> {
           "Keep the analysis record history in one app and help doctor to understand more about you",
     ),
     OnboardModel(
-      img: 'assets/images/First-aid-kit-bro.png',
+      img: 'assets/images/Reminders-bro.png',
       text: "Take medicine on time",
       desc:
           "Set the time for taking the medicine and get daily notifications, by managing your treatment in that easy way",

@@ -20,44 +20,59 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Analysis List',
+          'Analysis List', style: TextStyle(fontSize: 25, fontFamily: 'Grotesque')
         ),
         backgroundColor: kStaticMainColor,
       ),
       body: Column(
         children: [
-          Row(
-            children: [
-              Container(
-                  width: MediaQuery.of(context).size.width - 80,
-                  height: 30,
-                  child: TextField(
-                    onChanged: (text) {
-                      setState(() {
-                        searchtxt = text;
-                      });
-                    },
-                  )),
-              Container(
-                  width: 70,
-                  height: 30,
-                  child: TextButton(
-                      onPressed: () {
-                        setState(() {});
-                      },
-                      child: Text('Search'))),
-            ],
+          SizedBox(
+            height: 15,
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 30,right: 30),
+            child: TextField(
+              style: TextStyle(
+                fontFamily: 'Grotesque',
+                fontSize: 15,
+              ),
+              decoration: kInputDecoration.copyWith(
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: kDarkBlue),
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: kDarkBlue),
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: kDarkBlue),
+                  borderRadius: BorderRadius.all(Radius.circular(20)
+                  ),
+                ),
+                label: Text('Search'),
+                labelStyle: TextStyle(
+                    fontSize: 15,
+                    fontFamily: 'Grotesque',
+                    color: kBlack
+                ),
+                hintText: 'type analysis name',
+                hintStyle: TextStyle(
+                  fontSize: 15,
+                  fontFamily: 'Grotesque',
+                  color: Colors.black38,
+                ),
+              ),
+              onChanged: (text) {
+                setState(() {
+                  searchtxt = text;
+                });
+              },
+            ),
           ),
           Expanded(
             child: CustomScrollView(
               slivers: [
-                CupertinoSliverNavigationBar(
-                  transitionBetweenRoutes: false,
-                  heroTag: 'lab',
-                  automaticallyImplyLeading: false,
-                  largeTitle: Text('Laboratory'),
-                  backgroundColor: Colors.transparent,
-                ),
                 SliverList(
                   delegate: SliverChildListDelegate([
                     StreamBuilder<QuerySnapshot>(
@@ -83,14 +98,14 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                 children: documents
                                     .map((doc) => Column(
                                           children: [
-                                            Text('Laboratory'),
+                                            Text('Laboratory', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, fontFamily: 'Grotesque')),
                                             Container(
                                               height: 65,
                                               child: ListTile(
-                                                title: Text(doc['testName']),
-                                                subtitle: Text(doc['required']),
+                                                title: Text(doc['testName'], style: TextStyle(fontSize: 15, fontFamily: 'Grotesque')),
+                                                subtitle: Text(doc['required'], style: TextStyle(fontSize: 15, fontFamily: 'Grotesque')),
                                                 trailing:
-                                                    Text('${doc['price']}\$'),
+                                                    Text('${doc['price']}\$', style: TextStyle(fontSize: 15, fontFamily: 'Grotesque')),
                                               ),
                                             ),
                                             Divider(
@@ -101,11 +116,11 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                         ))
                                     .toList());
                           } else if (snapshot.hasError) {
-                            return Text('It\'s Error!');
+                            return Text('It\'s Error!', style: TextStyle(fontSize: 20, fontFamily: 'Grotesque'));
                           }
                           return Center(
                             child: CircularProgressIndicator(
-                              backgroundColor: Colors.green,
+                              backgroundColor: kStaticMainColor,
                             ),
                           );
                         }),
@@ -136,14 +151,14 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                 children: documents
                                     .map((doc) => Column(
                                           children: [
-                                            Text('Ultrasound'),
+                                            Text('Ultrasound', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold, fontFamily: 'Grotesque')),
                                             Container(
                                               height: 65,
                                               child: ListTile(
-                                                title: Text(doc['testName']),
-                                                subtitle: Text(doc['required']),
+                                                title: Text(doc['testName'], style: TextStyle(fontSize: 15, fontFamily: 'Grotesque')),
+                                                subtitle: Text(doc['required'], style: TextStyle(fontSize: 15, fontFamily: 'Grotesque')),
                                                 trailing:
-                                                    Text('${doc['price']}\$'),
+                                                    Text('${doc['price']}\$', style: TextStyle(fontSize: 15, fontFamily: 'Grotesque')),
                                               ),
                                             ),
                                             Divider(
@@ -154,11 +169,11 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                         ))
                                     .toList());
                           } else if (snapshot.hasError) {
-                            return Text('It\'s Error!');
+                            return Text('It\'s Error!', style: TextStyle(fontSize: 15, fontFamily: 'Grotesque'));
                           }
                           return Center(
                             child: CircularProgressIndicator(
-                              backgroundColor: Colors.green,
+                              backgroundColor: kStaticMainColor,
                             ),
                           );
                         }),
@@ -189,14 +204,14 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                 children: documents
                                     .map((doc) => Column(
                                           children: [
-                                            Text('Doppler'),
+                                            Text('Doppler', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold, fontFamily: 'Grotesque')),
                                             Container(
                                               height: 65,
                                               child: ListTile(
-                                                title: Text(doc['testName']),
-                                                subtitle: Text(doc['required']),
+                                                title: Text(doc['testName'], style: TextStyle(fontSize: 15, fontFamily: 'Grotesque')),
+                                                subtitle: Text(doc['required'], style: TextStyle(fontSize: 15, fontFamily: 'Grotesque')),
                                                 trailing:
-                                                    Text('${doc['price']}\$'),
+                                                    Text('${doc['price']}\$', style: TextStyle(fontSize: 15, fontFamily: 'Grotesque')),
                                               ),
                                             ),
                                             Divider(
@@ -207,11 +222,11 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                         ))
                                     .toList());
                           } else if (snapshot.hasError) {
-                            return Text('It\'s Error!');
+                            return Text('It\'s Error!', style: TextStyle(fontSize: 15, fontFamily: 'Grotesque'));
                           }
                           return Center(
                             child: CircularProgressIndicator(
-                              backgroundColor: Colors.green,
+                              backgroundColor: kStaticMainColor,
                             ),
                           );
                         }),
@@ -242,14 +257,14 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                 children: documents
                                     .map((doc) => Column(
                                           children: [
-                                            Text('X-Ray'),
+                                            Text('X-Ray', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold, fontFamily: 'Grotesque')),
                                             Container(
                                               height: 65,
                                               child: ListTile(
-                                                title: Text(doc['testName']),
-                                                subtitle: Text(doc['required']),
+                                                title: Text(doc['testName'], style: TextStyle(fontSize: 15, fontFamily: 'Grotesque')),
+                                                subtitle: Text(doc['required'], style: TextStyle(fontSize: 15, fontFamily: 'Grotesque')),
                                                 trailing:
-                                                    Text('${doc['price']}\$'),
+                                                    Text('${doc['price']}\$', style: TextStyle(fontSize: 15, fontFamily: 'Grotesque')),
                                               ),
                                             ),
                                             Divider(
@@ -260,11 +275,11 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                         ))
                                     .toList());
                           } else if (snapshot.hasError) {
-                            return Text('It\'s Error!');
+                            return Text('It\'s Error!', style: TextStyle(fontSize: 15, fontFamily: 'Grotesque'));
                           }
                           return Center(
                             child: CircularProgressIndicator(
-                              backgroundColor: Colors.green,
+                              backgroundColor: kStaticMainColor,
                             ),
                           );
                         }),
@@ -295,14 +310,14 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                 children: documents
                                     .map((doc) => Column(
                                           children: [
-                                            Text('Miscellenous'),
+                                            Text('Miscellenous', style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold, fontFamily: 'Grotesque')),
                                             Container(
                                               height: 65,
                                               child: ListTile(
-                                                title: Text(doc['testName']),
-                                                subtitle: Text(doc['required']),
+                                                title: Text(doc['testName'], style: TextStyle(fontSize: 15, fontFamily: 'Grotesque')),
+                                                subtitle: Text(doc['required'], style: TextStyle(fontSize: 15, fontFamily: 'Grotesque')),
                                                 trailing:
-                                                    Text('${doc['price']}\$'),
+                                                    Text('${doc['price']}\$', style: TextStyle(fontSize: 15, fontFamily: 'Grotesque')),
                                               ),
                                             ),
                                             Divider(
@@ -313,11 +328,11 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
                                         ))
                                     .toList());
                           } else if (snapshot.hasError) {
-                            return Text('It\'s Error!');
+                            return Text('It\'s Error!', style: TextStyle(fontSize: 15, fontFamily: 'Grotesque'));
                           }
                           return Center(
                             child: CircularProgressIndicator(
-                              backgroundColor: Colors.green,
+                              backgroundColor: kStaticMainColor,
                             ),
                           );
                         }),

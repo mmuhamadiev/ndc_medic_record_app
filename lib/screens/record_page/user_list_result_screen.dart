@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ndc_medic_record_app/utils/auth_helper.dart';
 
+import '../../constraints.dart';
+
 User? loggedInUser;
 
 class UserListResultScreen extends StatefulWidget {
@@ -44,27 +46,51 @@ class _UserListResultScreenState extends State<UserListResultScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Container(
-                    width: MediaQuery.of(context).size.width - 80,
-                    height: 30,
-                    child: TextField(
-                      onChanged: (text) {
-                        setState(() {
-                          searchtxt = text;
-                        });
-                      },
-                    )),
-                Container(
-                    width: 70,
-                    height: 30,
-                    child: TextButton(
-                        onPressed: () {
-                          setState(() {});
-                        },
-                        child: Text('Search'))),
-              ],
+            SizedBox(
+              height: 15,
+            ),
+            Container(
+              child: TextField(
+                style: TextStyle(
+                  fontFamily: 'Grotesque',
+                  fontSize: 15,
+                ),
+                decoration: kInputDecoration.copyWith(
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: kDarkBlue),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: kDarkBlue),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: kDarkBlue),
+                    borderRadius: BorderRadius.all(Radius.circular(20)
+                    ),
+                  ),
+                  label: Text('Search'),
+                  labelStyle: TextStyle(
+                      fontSize: 15,
+                      fontFamily: 'Grotesque',
+                      color: kBlack
+                  ),
+                  hintText: 'type analysis name',
+                  hintStyle: TextStyle(
+                    fontSize: 15,
+                    fontFamily: 'Grotesque',
+                    color: Colors.black38,
+                  ),
+                ),
+                onChanged: (text) {
+                  setState(() {
+                    searchtxt = text;
+                  });
+                },
+              ),
+            ),
+            SizedBox(
+              height: 15,
             ),
             StreamBuilder<QuerySnapshot>(
                 stream: (searchtxt != "" && searchtxt != null)
@@ -103,13 +129,21 @@ class _UserListResultScreenState extends State<UserListResultScreen> {
                                       list.add(element.id);
                                       });
                                       final unreadMessages = snapshot.data?.docs.length;
-                                      return Text(unreadMessages.toString());
+                                      return Text(unreadMessages.toString(),style: TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: 'Grotesque',
+                                          color: kBlack
+                                      ),);
                                     }
                                 ),
                                 Container(
                                   height: 65,
                                   child: ListTile(
-                                    title: Text(doc['email'],style: TextStyle(color: Colors.black),),
+                                    title: Text(doc['email'],style: TextStyle(
+                                        fontSize: 15,
+                                        fontFamily: 'Grotesque',
+                                        color: kBlack
+                                    ),),
                                     onTap: () {
                                       if(list.toSet().toList().length == 0) {
                                         final userData = FirebaseAuth.instance.currentUser;
@@ -138,11 +172,15 @@ class _UserListResultScreenState extends State<UserListResultScreen> {
                         ))
                             .toList());
                   } else if (snapshot.hasError) {
-                    return Text('It\'s Error!');
+                    return Text('It\'s Error!',style: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'Grotesque',
+                        color: kBlack
+                    ),);
                   }
                   return Center(
                     child: CircularProgressIndicator(
-                      backgroundColor: Colors.green,
+                      backgroundColor: kStaticMainColor,
                     ),
                   );
                 }),

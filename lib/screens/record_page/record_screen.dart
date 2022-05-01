@@ -235,36 +235,38 @@ class MessageBubble extends StatelessWidget {
           children: [
             Text(
               sender,
-              style: TextStyle(color: Colors.black54, fontSize: 12),
+              style: TextStyle(color: Colors.black54, fontSize: 15, fontFamily: 'Grotesque'),
             ),
-            Material(
-              borderRadius: isMe
-                  ? BorderRadius.only(
+            TextButton(
+              style: ButtonStyle(
+                  backgroundColor: isMe? MaterialStateProperty.all(kStaticMainColor): MaterialStateProperty.all(kDarkBlue),
+                shape: isMe
+                    ? MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       bottomLeft: Radius.circular(30),
                       bottomRight: Radius.circular(30))
-                  : BorderRadius.only(
+                ),
+              ):
+                MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
                       topRight: Radius.circular(30),
                       bottomLeft: Radius.circular(30),
                       bottomRight: Radius.circular(30)),
-              elevation: 5,
-              color: isMe ? Colors.lightBlueAccent : Colors.lightGreenAccent,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PDFViewerFromUrl(
-                            url: url,
-                            text: text,
-                          ),
-                        ));
-                  },
-                  child: Text(text),
                 ),
+                )
               ),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PDFViewerFromUrl(
+                        url: url,
+                        text: text,
+                      ),
+                    ));
+              },
+              child: Text(text, style: TextStyle(fontSize: 20, fontFamily: 'Grotesque', color: kWhite),),
             ),
           ],
         ),

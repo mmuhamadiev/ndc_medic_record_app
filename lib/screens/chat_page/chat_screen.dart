@@ -104,11 +104,11 @@ class _ChatScreenState extends State<ChatScreen> {
                       splashRadius: 20.0,
                       icon: Icon(
                         Icons.attach_file,
-                        color: Colors.lightBlueAccent,
+                        color: kOrange,
                       )),
                   Expanded(
                     child: TextField(
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: kBlack,fontFamily: 'Grotesque', fontSize: 17),
                       controller: messageTextController,
                       onChanged: (value) {
                         //Do something with the user input.
@@ -116,7 +116,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       },
                       decoration: kMessageTextFieldDecoration.copyWith(
                           hintText: 'Type message here...',
-                          hintStyle: TextStyle(color: Colors.black54)),
+                          hintStyle: TextStyle(color: Colors.black54, fontFamily: 'Grotesque', fontSize: 17)),
                     ),
                   ),
                   TextButton(
@@ -175,7 +175,7 @@ class _ChatScreenState extends State<ChatScreen> {
             child: Wrap(
               children: <Widget>[
                 ListTile(
-                    leading: Icon(Icons.image),
+                    leading: Icon(Icons.image, color: kOrange,),
                     title: Text('Image'),
                     onTap: () => showFilePicker(FileType.image)),
               ],
@@ -313,7 +313,7 @@ class MessageBubble extends StatelessWidget {
           children: [
             Text(
               sender,
-              style: TextStyle(color: Colors.black54, fontSize: 12),
+              style: TextStyle(color: Colors.black38, fontSize: 15, fontFamily: 'Grotesque'),
             ),
             Material(
               borderRadius: isMe
@@ -326,14 +326,15 @@ class MessageBubble extends StatelessWidget {
                   bottomLeft: Radius.circular(30),
                   bottomRight: Radius.circular(30)),
               elevation: 5,
-              color: isMe ? Colors.lightBlueAccent : Colors.lightGreenAccent,
+              color: isMe ? kStaticMainColor : kDarkBlue,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Text(
                   text,
                   style: TextStyle(
-                      fontSize: 15.0,
-                      color: isMe ? Colors.white : Colors.black54),
+                    fontFamily: 'Grotesque',
+                      fontSize: 20.0,
+                      color: isMe ? Colors.white : Colors.white),
                 ),
               ),
             ),
@@ -349,7 +350,7 @@ class MessageBubble extends StatelessWidget {
           children: [
             Text(
               sender,
-              style: TextStyle(color: Colors.black54, fontSize: 12),
+              style: TextStyle(color: Colors.black38, fontSize: 15, fontFamily: 'Grotesque'),
             ),
             Material(
               borderRadius: isMe
@@ -362,22 +363,28 @@ class MessageBubble extends StatelessWidget {
                   bottomLeft: Radius.circular(30),
                   bottomRight: Radius.circular(30)),
               elevation: 5,
-              color: isMe ? Colors.lightBlueAccent : Colors.lightGreenAccent,
-              child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: FullScreenWidget(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: CachedNetworkImage(
-                        imageUrl: url,
-                        progressIndicatorBuilder:
-                            (context, url, downloadProgress) =>
-                            CircularProgressIndicator(
-                                value: downloadProgress.progress),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
-                      ),
-                    ),
-                  )),
+              color: isMe ? kStaticMainColor : kDarkBlue,
+              child: FullScreenWidget(
+                child: ClipRRect(
+                  borderRadius: isMe
+                      ? BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30))
+                      : BorderRadius.only(
+                      topRight: Radius.circular(30),
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30)),
+                  child: CachedNetworkImage(
+                    imageUrl: url,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) =>
+                        CircularProgressIndicator(
+                            value: downloadProgress.progress),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
+                ),
+              ),
             ),
           ],
         ),

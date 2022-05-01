@@ -90,7 +90,7 @@ class _DoctorTabViewState extends State<DoctorTabView> {
                         }
                         return Center(
                           child: CircularProgressIndicator(
-                            backgroundColor: Colors.green,
+                            backgroundColor: kStaticMainColor,
                           ),
                         );
                       }),

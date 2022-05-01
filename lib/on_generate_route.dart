@@ -43,14 +43,6 @@ class OnGenerateRoutes {
         return MaterialPageRoute(builder: (BuildContext context) {
           return MainMenuPage();
         });
-      case TaskScreen.routeName:
-        return MaterialPageRoute(builder: (BuildContext context) {
-          return TaskScreen();
-        });
-      case AnalysisScreen.routeName:
-        return MaterialPageRoute(builder: (BuildContext context) {
-          return AnalysisScreen();
-        });
       case ChatScreen.routeName:
         return MaterialPageRoute(builder: (BuildContext context) {
           return ChatScreen(receiver: settings.arguments.toString(),leading: true);
@@ -67,15 +59,6 @@ class OnGenerateRoutes {
         return MaterialPageRoute(builder: (BuildContext context) {
           return RecordScreen(receiver: settings.arguments.toString(),leading: true);
         });
-      case AboutScreen.routeName:
-        return MaterialPageRoute(builder: (BuildContext context) {
-          return AboutScreen();
-        });
-      // case DetailsPage.routeName:
-      //   return MaterialPageRoute(builder: (BuildContext context) {
-      //     final args = settings.arguments as Map<String, dynamic>;
-      //     return DetailsPage(payload: args['payload']);
-      //   });
       default:
         return MaterialPageRoute(builder: (BuildContext context) {return NotFoundPage();});
     }

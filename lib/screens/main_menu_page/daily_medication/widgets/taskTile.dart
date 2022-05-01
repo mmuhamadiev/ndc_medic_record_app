@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ndc_medic_record_app/constraints.dart';
 
 class TaskTile extends StatelessWidget {
   bool isChecked = false;
@@ -15,6 +16,9 @@ class TaskTile extends StatelessWidget {
       title: Text(
         taskTitle ?? '',
         style: TextStyle(
+          fontFamily: 'Grotesque',
+          fontSize: 15,
+          color: kBlack,
           decoration:
               isChecked ? TextDecoration.lineThrough : TextDecoration.none,
         ),

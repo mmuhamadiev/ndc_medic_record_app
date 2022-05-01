@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:ndc_medic_record_app/constraints.dart';
 
 class DateField extends StatelessWidget {
   const DateField({Key? key, required this.eventDate}) : super(key: key);
@@ -9,8 +10,8 @@ class DateField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
-        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(15),
+        color: kDarkBlue,
       ),
       padding: const EdgeInsets.all(12.0),
       child: Row(
@@ -21,6 +22,8 @@ class DateField extends StatelessWidget {
                   ? "Select the event day"
                   : DateFormat("EEEE, d MMM y").format(eventDate!),
               style: TextStyle(
+                color: kWhite,
+                fontFamily: 'Grotesque',
                 fontSize: 15.0,
                 fontWeight: FontWeight.w500,
               ),
@@ -29,6 +32,7 @@ class DateField extends StatelessWidget {
           Icon(
             Icons.calendar_today_outlined,
             size: 18.0,
+            color: kOrange,
           ),
         ],
       ),

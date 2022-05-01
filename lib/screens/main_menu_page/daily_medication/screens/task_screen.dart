@@ -19,13 +19,36 @@ class TaskScreen extends StatelessWidget {
           style: TextStyle(
               color: kTextWhiteColor,
               fontSize: 25,
-              fontWeight: FontWeight.bold),
+              fontFamily: 'Grotesque'),
         ),
       ),
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddListTile()));
+          Navigator.of(context)
+              .push(PageRouteBuilder(
+            pageBuilder: (BuildContext context,
+                Animation<double> animation,
+                Animation<double>
+                secondaryAnimation) {
+              return AddListTile();
+            },
+            transitionsBuilder:
+                (BuildContext context,
+                Animation<double> animation,
+                Animation<double>
+                secondaryAnimation,
+                Widget child) {
+              return Align(
+                child: SizeTransition(
+                  sizeFactor: animation,
+                  child: child,
+                ),
+              );
+            },
+            transitionDuration:
+            Duration(milliseconds: 1000),
+          ));
         },
         backgroundColor: kStaticMainColor,
         child: Icon(Icons.add),
@@ -41,7 +64,7 @@ class TaskScreen extends StatelessWidget {
                 ),
                 Text(
                   '${Provider.of<TaskData>(context).taskCount} Tasks',
-                  style: TextStyle(color: Colors.black, fontSize: 18),
+                  style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'Grotesque'),
                 ),
               ],
             ),

@@ -42,7 +42,7 @@ class _AdminScreenState extends State<AdminScreen>
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kStaticMainColor,
-        title: Text(appBarText()),
+        title: Text(appBarText(), style: TextStyle( fontFamily: 'Grotesque', fontSize: 25),),
         leading: IconButton(
           icon: Icon(Icons.close),
           onPressed: () async {
@@ -69,7 +69,7 @@ class _AdminScreenState extends State<AdminScreen>
       bottomNavigationBar: CurvedNavigationBar(
         color: kStaticMainColor,
         backgroundColor: Colors.white,
-        buttonBackgroundColor: kStaticMainColor,
+        buttonBackgroundColor: kOrange,
         animationCurve: Curves.easeIn,
         animationDuration: Duration(milliseconds: 1000),
         onTap: (index) {

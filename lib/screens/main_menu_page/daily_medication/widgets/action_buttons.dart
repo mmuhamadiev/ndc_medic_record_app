@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ndc_medic_record_app/constraints.dart';
 
 class ActionButtons extends StatelessWidget {
   const ActionButtons({
@@ -18,17 +19,28 @@ class ActionButtons extends StatelessWidget {
           onPressed: onCancel,
           style: ElevatedButton.styleFrom(
             elevation: 0,
-            primary: Colors.grey[200],
+            primary: kDarkBlue,
           ),
           child: Text(
             "Cancel",
-            style: TextStyle(color: Colors.black87),
+              style: TextStyle(
+                fontFamily: 'Grotesque',
+                fontSize: 18.0,
+                color: kWhite
+              )
           ),
         ),
         SizedBox(width: 12.0),
-        ElevatedButton(
+        ElevatedButton(style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(kOrange)
+        ),
           onPressed: onCreate,
-          child: Text("Create"),
+          child: Text("Create",
+    style: TextStyle(
+    fontFamily: 'Grotesque',
+    fontSize: 18.0,
+    color: kWhite,
+    )),
         ),
       ],
     );

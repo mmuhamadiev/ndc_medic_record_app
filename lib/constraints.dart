@@ -55,9 +55,9 @@ const kResultSmallTextStyle = TextStyle(fontSize: 30,color: Colors.white, fontFa
 const kResultLargeTextStyle = TextStyle(fontSize: 100,color: Colors.white, fontFamily: 'Grotesque');
 
 const kSendButtonTextStyle = TextStyle(
-  color: Colors.lightBlueAccent,
+  color: kOrange,
   fontWeight: FontWeight.bold,
-  fontSize: 18.0,
+  fontSize: 20.0,
     fontFamily: 'Grotesque'
 );
 
@@ -68,8 +68,9 @@ const kMessageTextFieldDecoration = InputDecoration(
 );
 
 const kMessageContainerDecoration = BoxDecoration(
+  color: kWhite,
   border: Border(
-    top: BorderSide(color: Colors.lightBlueAccent, width: 2.0),
+    top: BorderSide(color: kDarkBlue, width: 2.0),
   ),
 );
 
