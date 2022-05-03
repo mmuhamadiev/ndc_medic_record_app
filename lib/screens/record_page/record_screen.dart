@@ -290,16 +290,17 @@ class PDFViewerFromUrl extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(text),
+        backgroundColor: kStaticMainColor,
+        title: Text(text,style: TextStyle(fontFamily: 'Grotesque', fontSize: 20),),
       ),
       body: const PDF().cachedFromUrl(
         url,
         placeholder: (double progress) => Center(
             child: Text(
           '$progress %',
-          style: TextStyle(fontSize: 30, color: Colors.black),
+          style: TextStyle(fontSize: 30, color: Colors.black, fontFamily: 'Grotesque'),
         )),
-        errorWidget: (dynamic error) => Center(child: Text(error.toString())),
+        errorWidget: (dynamic error) => Center(child: Text(error.toString(), style: TextStyle(fontSize: 30, color: Colors.black, fontFamily: 'Grotesque'))),
       ),
     );
   }
