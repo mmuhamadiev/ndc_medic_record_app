@@ -129,18 +129,25 @@ class _UserListResultScreenState extends State<UserListResultScreen> {
                                       list.add(element.id);
                                       });
                                       final unreadMessages = snapshot.data?.docs.length;
-                                      return Text(unreadMessages.toString(),style: TextStyle(
-                                          fontSize: 15,
-                                          fontFamily: 'Grotesque',
-                                          color: kBlack
-                                      ),);
+                                      return unreadMessages.toString() == '0'? Text(''): Container(
+                                        width: 30,
+                                        height: 30,
+                                        decoration: new BoxDecoration(
+                                          color: kDarkBlue,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            unreadMessages.toString(), style: TextStyle(fontFamily: 'Grotesque', fontSize: 15, color: kWhite),),
+                                        ),
+                                      );
                                     }
                                 ),
                                 Container(
                                   height: 65,
                                   child: ListTile(
                                     title: Text(doc['email'],style: TextStyle(
-                                        fontSize: 15,
+                                        fontSize: 20,
                                         fontFamily: 'Grotesque',
                                         color: kBlack
                                     ),),
