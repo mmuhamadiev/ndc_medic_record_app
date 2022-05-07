@@ -34,6 +34,7 @@ class UserHelper {
       'age': age,
       'height': height,
       'weight': weight,
+      'inChat': 'false',
     };
 
     _db.collection('users').doc(user?.uid).set(userData);

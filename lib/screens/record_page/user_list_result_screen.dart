@@ -121,7 +121,7 @@ class _UserListResultScreenState extends State<UserListResultScreen> {
                                       if (!snapshot.hasData) {
                                         return Center(
                                           child: CircularProgressIndicator(
-                                            backgroundColor: Colors.lightBlueAccent,
+                                            backgroundColor: kStaticMainColor,
                                           ),
                                         );
                                       }

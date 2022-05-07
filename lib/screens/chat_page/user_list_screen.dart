@@ -132,7 +132,7 @@ class _UserListScreenState extends State<UserListScreen> {
                                                   child:
                                                       CircularProgressIndicator(
                                                     backgroundColor:
-                                                        Colors.lightBlueAccent,
+                                                        kStaticMainColor,
                                                   ),
                                                 );
                                               }

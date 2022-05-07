@@ -58,29 +58,7 @@ class _RecordScreenState extends State<RecordScreen> {
                 },
                 icon: Icon(Icons.arrow_back_ios))
             : null,
-        title: StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance
-                .collection("users")
-                .where('email', isEqualTo: widget.receiver)
-                .snapshots(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (!snapshot.hasData) {
-                return Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: Colors.lightBlueAccent,
-                  ),
-                );
-              }
-              final users = snapshot.data?.docs;
-              List<String> t = [];
-              for (var i in users) {
-                final u = i.data()['inChat'];
-                map = {1: u.toString()};
-              }
-              //list.add(user);
-              return Text('${widget.receiver}');
-            }),
-        //Text('${widget.receiver}'),
+        title: Text('${widget.receiver}', style: TextStyle(fontFamily: 'Grotesque', fontSize: 20),),
         backgroundColor: kStaticMainColor,
       ),
       body: SafeArea(
@@ -88,6 +66,23 @@ class _RecordScreenState extends State<RecordScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection("users")
+                    .where('email', isEqualTo: widget.receiver)
+                    .snapshots(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    return Text('', style: TextStyle(fontSize: 0),);
+                  }
+                  final users = snapshot.data?.docs;
+                  for (var i in users) {
+                    final u = i.data()['inChat'];
+                    map = {1: u.toString()};
+                  }
+                  //list.add(user);
+                  return Text('', style: TextStyle(fontSize: 0),);
+                }),
             MessagesStream(
               receiver: widget.receiver,
             ),
@@ -99,7 +94,7 @@ class _RecordScreenState extends State<RecordScreen> {
         backgroundColor: kOrange,
         child: Icon(Icons.attach_file),
         onPressed: () {
-          showFilePicker(FileType.any);
+          showFilePicker(FileType.custom);
         },
       )
     );
@@ -108,7 +103,7 @@ class _RecordScreenState extends State<RecordScreen> {
   final Storage storage = Storage();
   showFilePicker(FileType fileType) async {
     FilePickerResult? file = await FilePicker.platform
-        .pickFiles(type: fileType, allowMultiple: false);
+        .pickFiles(type: fileType, allowMultiple: false, allowedExtensions: ['pdf']);
     if (file == null) {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('No file selected')));
@@ -119,13 +114,13 @@ class _RecordScreenState extends State<RecordScreen> {
       // Upload file
       final uploadTask =
           await storage.uploadFile(path!, fileName).then((value) {
-        Navigator.pop(context);
+        //Navigator.pop(context);
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('Sending the file')));
       });
       print(fileType.toString());
       print(storage.urlLink);
-      if (map[1] == 'true' && fileType.toString() == 'FileType.any') {
+      if (map[1] == 'true' && fileType.toString() == 'FileType.custom') {
         _firestore.collection('messages').add({
           'text': fileName,
           'sender': loggedInUser?.email,
@@ -135,7 +130,7 @@ class _RecordScreenState extends State<RecordScreen> {
           'type': 'file',
           'unread': 'read',
         });
-      } else if (map[1] == 'false' && fileType.toString() == 'FileType.any') {
+      } else if (map[1] == 'false' && fileType.toString() == 'FileType.custom') {
         _firestore.collection('messages').add({
           'text': fileName,
           'sender': loggedInUser?.email,
@@ -163,7 +158,7 @@ class MessagesStream extends StatelessWidget {
         if (!snapshot.hasData) {
           return Center(
             child: CircularProgressIndicator(
-              backgroundColor: Colors.lightBlueAccent,
+              backgroundColor: kStaticMainColor,
             ),
           );
         }

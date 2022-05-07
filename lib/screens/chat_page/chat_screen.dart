@@ -59,29 +59,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 },
                 icon: Icon(Icons.arrow_back_ios))
             : null,
-        title: StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance
-                .collection("users")
-                .where('email', isEqualTo: widget.receiver)
-                .snapshots(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (!snapshot.hasData) {
-                return Center(
-                  child: CircularProgressIndicator(
-                    backgroundColor: Colors.lightBlueAccent,
-                  ),
-                );
-              }
-              final users = snapshot.data?.docs;
-              List<String> t = [];
-              for (var i in users) {
-                final u = i.data()['inChat'];
-                map = {1: u.toString()};
-              }
-              //list.add(user);
-              return Text('${widget.receiver}');
-            }),
-        //Text('${widget.receiver}'),
+        title: Text(widget.receiver, style: TextStyle(fontSize: 20, fontFamily: 'Grotesque'),),
         backgroundColor: kStaticMainColor,
       ),
       body: SafeArea(
@@ -89,6 +67,23 @@ class _ChatScreenState extends State<ChatScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+        StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection("users")
+            .where('email', isEqualTo: widget.receiver)
+            .snapshots(),
+          builder: (BuildContext context, AsyncSnapshot snapshot) {
+            if (!snapshot.hasData) {
+              return Text('', style: TextStyle(fontSize: 0),);
+            }
+            final users = snapshot.data?.docs;
+            for (var i in users) {
+              final u = i.data()['inChat'];
+              map = {1: u.toString()};
+            }
+            //list.add(user);
+            return Text('', style: TextStyle(fontSize: 0),);
+          }),
             MessagesStream(
               receiver: widget.receiver,
             ),
@@ -122,7 +117,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   TextButton(
                     onPressed: () {
                       //Implement send functionality.
-                      if(messageText == '') {
+                      if(messageText.isEmpty) {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(content: Text('Type something to send')));
                       }
@@ -138,6 +133,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             'type': 'text',
                             'unread': 'read',
                           });
+                          messageText = '';
                         } else {
                           messageTextController.clear();
                           _firestore.collection('messages').add({
@@ -149,6 +145,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             'type': 'text',
                             'unread': 'unread',
                           });
+                          messageText = '';
                         }
                       }
 
@@ -204,7 +201,7 @@ class _ChatScreenState extends State<ChatScreen> {
       print(fileType.toString());
       print(storage.urlLink);
 
-      if (map[1] == 'true' && fileType.toString() == 'FileType.image') {
+      if (map[1] == 'true') {
         _firestore.collection('messages').add({
           'text': fileName,
           'sender': loggedInUser?.email,
@@ -214,7 +211,7 @@ class _ChatScreenState extends State<ChatScreen> {
           'type': 'image',
           'unread': 'read',
         });
-      }  else if (map[1] == 'false' && fileType.toString() == 'FileType.image') {
+      }  else if (map[1] == 'false') {
         _firestore.collection('messages').add({
           'text': fileName,
           'sender': loggedInUser?.email,
@@ -242,7 +239,7 @@ class MessagesStream extends StatelessWidget {
         if (!snapshot.hasData) {
           return Center(
             child: CircularProgressIndicator(
-              backgroundColor: Colors.lightBlueAccent,
+              backgroundColor: kStaticMainColor,
             ),
           );
         }
