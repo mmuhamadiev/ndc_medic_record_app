@@ -55,6 +55,10 @@ class OnGenerateRoutes {
         return MaterialPageRoute(builder: (BuildContext context) {
           return UserListResultScreen();
         });
+      case TaskScreen.routeName:
+        return MaterialPageRoute(builder: (BuildContext context) {
+          return TaskScreen();
+        });
       case RecordScreen.routeName:
         return MaterialPageRoute(builder: (BuildContext context) {
           return RecordScreen(receiver: settings.arguments.toString(),leading: true);
