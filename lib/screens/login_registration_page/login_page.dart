@@ -33,6 +33,43 @@ class _LoginPageState extends State<LoginPage> {
   Tween<double> _scaleTween = Tween<double>(begin: 1, end: 10);
 
   @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration(milliseconds: 600), () async{
+      final existUser = await AuthHelper.signInWithEmail(
+          email: 'user@gmail.com',
+          password: '12345678');
+      if (existUser != null) {
+        Navigator.of(context).pushAndRemoveUntil(
+            PageRouteBuilder(
+              pageBuilder: (BuildContext context,
+                  Animation<double> animation,
+                  Animation<double> secondaryAnimation) {
+                return MainScreen();
+              },
+              transitionsBuilder: (BuildContext context,
+                  Animation<double> animation,
+                  Animation<double> secondaryAnimation,
+                  Widget child) {
+                return Align(
+                  child: SizeTransition(
+                    sizeFactor: animation,
+                    child: child,
+                  ),
+                );
+              },
+              transitionDuration:
+              Duration(milliseconds: 1000),
+            ),
+                (Route<dynamic> route) => false);
+      }
+      setState(() {
+        showSpinner = false;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {

@@ -95,27 +95,27 @@ class _FirstTabViewState extends State<FirstTabView>
                                 elevation: MaterialStateProperty.all(10)
                             ),
                             onPressed: () {
-                              Navigator.of(context).push(
-                                  PageRouteBuilder(
-                                    pageBuilder: (BuildContext context,
-                                        Animation<double> animation,
-                                        Animation<double> secondaryAnimation) {
-                                      return TaskScreen();
-                                    },
-                                    transitionsBuilder: (BuildContext context,
-                                        Animation<double> animation,
-                                        Animation<double> secondaryAnimation,
-                                        Widget child) {
-                                      return Align(
-                                        child: SizeTransition(
-                                          sizeFactor: animation,
-                                          child: child,
-                                        ),
-                                      );
-                                    },
-                                    transitionDuration:
-                                    Duration(milliseconds: 1000),
-                                  ));
+                              // Navigator.of(context).push(
+                              //     PageRouteBuilder(
+                              //       pageBuilder: (BuildContext context,
+                              //           Animation<double> animation,
+                              //           Animation<double> secondaryAnimation) {
+                              //         return TaskScreen();
+                              //       },
+                              //       transitionsBuilder: (BuildContext context,
+                              //           Animation<double> animation,
+                              //           Animation<double> secondaryAnimation,
+                              //           Widget child) {
+                              //         return Align(
+                              //           child: SizeTransition(
+                              //             sizeFactor: animation,
+                              //             child: child,
+                              //           ),
+                              //         );
+                              //       },
+                              //       transitionDuration:
+                              //       Duration(milliseconds: 1000),
+                              //     ));
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

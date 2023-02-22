@@ -15,6 +15,13 @@ class _DoctorTabViewState extends State<DoctorTabView> {
 
   @override
   Widget build(BuildContext context) {
+    final topStatusBarHeight = MediaQuery.of(context).viewPadding.top;
+    final bottomNotchHeight = MediaQuery.of(context).viewPadding.bottom;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+
+    final double scaleOfWidth = width / 930;
+    final double scaleOfHeight = height / 410;
             return Expanded(
               flex: 2,
               child: ListView(
@@ -43,14 +50,15 @@ class _DoctorTabViewState extends State<DoctorTabView> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    CachedNetworkImage(
-                                      imageUrl: doc['image'],
-                                      progressIndicatorBuilder:
-                                          (context, url, downloadProgress) =>
-                                          CircularProgressIndicator(
-                                              value: downloadProgress.progress),
-                                      errorWidget: (context, url, error) => Icon(Icons.error),
-                                    ),
+                                    Image.asset('assets/images/doc${doc['image']}.png'),
+                                    // CachedNetworkImage(
+                                    //   imageUrl: doc['image'],
+                                    //   progressIndicatorBuilder:
+                                    //       (context, url, downloadProgress) =>
+                                    //       CircularProgressIndicator(
+                                    //           value: downloadProgress.progress),
+                                    //   errorWidget: (context, url, error) => Icon(Icons.error),
+                                    // ),
                                     SizedBox(width: 10,),
                                     Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
@@ -62,9 +70,9 @@ class _DoctorTabViewState extends State<DoctorTabView> {
                                     repeatForever: true,
                                     pause: Duration(milliseconds: 0),
                                       animatedTexts: [
-                                        RotateAnimatedText(doc['specialist'], textStyle: TextStyle(fontSize: 18, fontFamily: 'Grotesque',color: kStaticMainColor)),
-                                        RotateAnimatedText('with', textStyle: TextStyle(fontFamily: 'Grotesque', fontSize: 15, color: kWhite)),
-                                        RotateAnimatedText('     ${doc['experience']} years \n experience', textStyle: TextStyle(fontSize: 18, fontFamily: 'Grotesque',color: kOrange)),
+                                        RotateAnimatedText(doc['specialist'], textStyle: TextStyle(fontSize: scaleOfWidth * 18, fontFamily: 'Grotesque',color: kStaticMainColor)),
+                                        RotateAnimatedText('with', textStyle: TextStyle(fontFamily: 'Grotesque', fontSize: scaleOfWidth * 15, color: kWhite)),
+                                        RotateAnimatedText('     ${doc['experience']} years \n experience', textStyle: TextStyle(fontSize: scaleOfWidth * 18, fontFamily: 'Grotesque',color: kOrange)),
                                       ]
                               ),
                                 ),

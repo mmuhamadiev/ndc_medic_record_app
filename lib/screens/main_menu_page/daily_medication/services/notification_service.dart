@@ -31,8 +31,8 @@ class NotificationService {
     importance: Importance.high,
   );
 
-  static final IOSNotificationDetails _iOSNotificationDetails =
-  IOSNotificationDetails();
+  static final DarwinNotificationDetails _iOSNotificationDetails =
+  DarwinNotificationDetails();
 
   final NotificationDetails notificationDetails = NotificationDetails(
     android: _androidNotificationDetails,
@@ -43,8 +43,8 @@ class NotificationService {
     final AndroidInitializationSettings androidInitializationSettings =
     AndroidInitializationSettings("img");
 
-    final IOSInitializationSettings iOSInitializationSettings =
-    IOSInitializationSettings(
+    final DarwinInitializationSettings iOSInitializationSettings =
+    DarwinInitializationSettings(
       defaultPresentAlert: false,
       defaultPresentBadge: false,
       defaultPresentSound: false,
@@ -61,7 +61,6 @@ class NotificationService {
 
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
-      onSelectNotification: onSelectNotification,
     );
   }
 
